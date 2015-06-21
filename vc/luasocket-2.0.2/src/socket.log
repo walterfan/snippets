@@ -1,0 +1,54 @@
+﻿Build started 2013-10-3 15:53:20.
+     1>Project "D:\workspace\cpp\simpledao\snippet\vc\luasocket-2.0.2\socket.vcxproj" on node 2 (build target(s)).
+     1>InitializeBuildStatus:
+         Touching "src\socket.unsuccessfulbuild".
+       ClCompile:
+         All outputs are up-to-date.
+       ManifestResourceCompile:
+         All outputs are up-to-date.
+       Link:
+         c:\Program Files\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"src\socket.dll" /INCREMENTAL /NOLOGO /LIBPATH:"D:\workspace\cpp\lua-5.1.5\lib" ws2_32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"src\socket.dll.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"src\socket.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"src\socket.lib" /MACHINE:X86 /DLL src\socket.dll.embed.manifest.res
+         src\auxiliar.obj
+         src\buffer.obj
+         src\except.obj
+         src\inet.obj
+         src\io.obj
+         src\luasocket.obj
+         src\options.obj
+         src\select.obj
+         src\tcp.obj
+         src\timeout.obj
+         src\udp.obj
+         src\wsocket.obj
+         "D:\workspace\cpp\lua-5.1.5\lib\lua5.1.lib"
+            Creating library src\socket.lib and object src\socket.exp
+     1>LINK : warning LNK4098: defaultlib 'LIBCMT' conflicts with use of other libs; use /NODEFAULTLIB:library
+       Manifest:
+         C:\Program Files\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /out:"src\socket.dll.embed.manifest" /manifest src\socket.dll.intermediate.manifest
+         C:\Program Files\Microsoft SDKs\Windows\v7.0A\bin\rc.exe /nologo /fo"src\socket.dll.embed.manifest.res" src\socket_manifest.rc 
+       LinkEmbedManifest:
+         c:\Program Files\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"src\socket.dll" /INCREMENTAL /NOLOGO /LIBPATH:"D:\workspace\cpp\lua-5.1.5\lib" ws2_32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"src\socket.dll.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"src\socket.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"src\socket.lib" /MACHINE:X86 /DLL src\socket.dll.embed.manifest.res
+         src\auxiliar.obj
+         src\buffer.obj
+         src\except.obj
+         src\inet.obj
+         src\io.obj
+         src\luasocket.obj
+         src\options.obj
+         src\select.obj
+         src\tcp.obj
+         src\timeout.obj
+         src\udp.obj
+         src\wsocket.obj
+         "D:\workspace\cpp\lua-5.1.5\lib\lua5.1.lib"
+            Creating library src\socket.lib and object src\socket.exp
+     1>LINK : warning LNK4098: defaultlib 'LIBCMT' conflicts with use of other libs; use /NODEFAULTLIB:library
+         socket.vcxproj -> D:\workspace\cpp\simpledao\snippet\vc\luasocket-2.0.2\src\socket.dll
+       FinalizeBuildStatus:
+         Deleting file "src\socket.unsuccessfulbuild".
+         Touching "src\socket.lastbuildstate".
+     1>Done Building Project "D:\workspace\cpp\simpledao\snippet\vc\luasocket-2.0.2\socket.vcxproj" (build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:01.89

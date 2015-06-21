@@ -1,0 +1,170 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{8387016E-5050-4D7E-A60A-6F2D662000C4}</ProjectGuid>
+    <RootNamespace>simpletao</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.40219.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(Configuration)\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(Configuration)\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>$(ACE_ROOT);$(GTEST_ROOT)\include;E:\wdrive\codes\cpp\simpletao\h;E:\wdrive\codes\cpp\simpletao\util;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>$(ACE_ROOT)/lib/ACEd.lib;$(GTEST_ROOT)/msvc/gtest/Debug/gtestd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ACE_ROOT)/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <Optimization>MaxSpeed</Optimization>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="test\ace_sock_test.cpp" />
+    <ClCompile Include="util\BasicLib\BasicLibRandom.cpp" />
+    <ClCompile Include="util\BasicLib\BasicLibString.cpp" />
+    <ClCompile Include="util\BasicLib\BasicLibTime.cpp" />
+    <ClCompile Include="exam\network\DateTimeServer.cpp" />
+    <ClCompile Include="test\gtest_primer.cpp" />
+    <ClCompile Include="test\HasPtr.cpp" />
+    <ClCompile Include="Issue.cpp" />
+    <ClCompile Include="test\Message.cpp" />
+    <ClCompile Include="test\reactor_test.cpp" />
+    <ClCompile Include="test\RefCtrlTest.cpp" />
+    <ClCompile Include="simpletao.cpp" />
+    <ClCompile Include="util\SocketLib\SocketLibErrors.cpp" />
+    <ClCompile Include="util\SocketLib\SocketLibSocket.cpp" />
+    <ClCompile Include="util\SocketLib\SocketLibSystem.cpp" />
+    <ClCompile Include="util\SocketLib\SocketSet.cpp" />
+    <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="util\SocketLib\Telnet.cpp" />
+    <ClCompile Include="util\ThreadLib\ThreadLibFunctions.cpp" />
+    <ClCompile Include="src\Timer.cpp" />
+    <ClCompile Include="test\waltertest.cpp" />
+    <ClCompile Include="src\wf_date.cpp" />
+    <ClCompile Include="src\wf_queue.cpp" />
+    <ClCompile Include="src\wf_stack.cpp" />
+    <ClCompile Include="IDGenerator.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="util\BasicLib\BasicLib.h" />
+    <ClInclude Include="util\BasicLib\BasicLibFunctions.h" />
+    <ClInclude Include="util\BasicLib\BasicLibLogger.h" />
+    <ClInclude Include="util\BasicLib\BasicLibRandom.h" />
+    <ClInclude Include="util\BasicLib\BasicLibString.h" />
+    <ClInclude Include="util\BasicLib\BasicLibTime.h" />
+    <ClInclude Include="util\BasicLib\BasicLibTypes.h" />
+    <ClInclude Include="h\common.h" />
+    <ClInclude Include="util\SocketLib\Connection.h" />
+    <ClInclude Include="util\SocketLib\ConnectionHandler.h" />
+    <ClInclude Include="exam\network\DateTimeServer.h" />
+    <ClInclude Include="util\Dumper.h" />
+    <ClInclude Include="test\HasPtr.h" />
+    <ClInclude Include="IDGenerator.h" />
+    <ClInclude Include="Issue.h" />
+    <ClInclude Include="util\SocketLib\ListeningManager.h" />
+    <ClInclude Include="test\Message.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="h\SmartPtr.h" />
+    <ClInclude Include="util\SocketLib\SocketLib.h" />
+    <ClInclude Include="util\SocketLib\SocketLibErrors.h" />
+    <ClInclude Include="util\SocketLib\SocketLibSocket.h" />
+    <ClInclude Include="util\SocketLib\SocketLibSystem.h" />
+    <ClInclude Include="util\SocketLib\SocketLibTypes.h" />
+    <ClInclude Include="util\SocketLib\SocketSet.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="targetver.h" />
+    <ClInclude Include="util\SocketLib\Telnet.h" />
+    <ClInclude Include="util\ThreadLib\ThreadException.h" />
+    <ClInclude Include="util\ThreadLib\ThreadLib.h" />
+    <ClInclude Include="util\ThreadLib\ThreadLibFunctions.h" />
+    <ClInclude Include="util\ThreadLib\ThreadLibMutex.h" />
+    <ClInclude Include="h\Timer.h" />
+    <ClInclude Include="h\wf_date.h" />
+    <ClInclude Include="h\wf_define.h" />
+    <ClInclude Include="h\wf_macro.h" />
+    <ClInclude Include="h\wf_queue.h" />
+    <ClInclude Include="h\wf_reactor.h" />
+    <ClInclude Include="h\wf_socket.h" />
+    <ClInclude Include="h\wf_stack.h" />
+    <ClInclude Include="h\wf_stream.h" />
+    <ClInclude Include="h\wf_string.h" />
+    <ClInclude Include="h\wf_thread.h" />
+    <ClInclude Include="h\wf_type.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="simpletao.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ReadMe.txt" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

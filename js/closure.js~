@@ -1,0 +1,15 @@
+var a = 1;
+function foo()
+{
+	var b = 2;
+	g = 3;
+	var f = function() 
+	{
+		var c = 4;
+		return a+b+c;
+	};
+	f();
+}
+
+
+

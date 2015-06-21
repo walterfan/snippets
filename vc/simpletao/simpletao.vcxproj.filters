@@ -1,0 +1,236 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="test\ace_sock_test.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="util\BasicLib\BasicLibRandom.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="util\BasicLib\BasicLibString.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="util\BasicLib\BasicLibTime.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="exam\network\DateTimeServer.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="test\gtest_primer.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="test\HasPtr.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Issue.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="test\Message.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="test\reactor_test.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="test\RefCtrlTest.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="simpletao.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="util\SocketLib\SocketLibErrors.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="util\SocketLib\SocketLibSocket.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="util\SocketLib\SocketLibSystem.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="util\SocketLib\SocketSet.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="util\SocketLib\Telnet.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="util\ThreadLib\ThreadLibFunctions.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Timer.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="test\waltertest.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\wf_date.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\wf_queue.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\wf_stack.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="IDGenerator.cpp">
+      <Filter>头文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="util\BasicLib\BasicLib.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="util\BasicLib\BasicLibFunctions.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="util\BasicLib\BasicLibLogger.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="util\BasicLib\BasicLibRandom.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="util\BasicLib\BasicLibString.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="util\BasicLib\BasicLibTime.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="util\BasicLib\BasicLibTypes.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="h\common.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="util\SocketLib\Connection.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="util\SocketLib\ConnectionHandler.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="exam\network\DateTimeServer.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="util\Dumper.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="test\HasPtr.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="IDGenerator.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Issue.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="util\SocketLib\ListeningManager.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="test\Message.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="h\SmartPtr.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="util\SocketLib\SocketLib.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="util\SocketLib\SocketLibErrors.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="util\SocketLib\SocketLibSocket.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="util\SocketLib\SocketLibSystem.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="util\SocketLib\SocketLibTypes.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="util\SocketLib\SocketSet.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="util\SocketLib\Telnet.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="util\ThreadLib\ThreadException.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="util\ThreadLib\ThreadLib.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="util\ThreadLib\ThreadLibFunctions.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="util\ThreadLib\ThreadLibMutex.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="h\Timer.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="h\wf_date.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="h\wf_define.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="h\wf_macro.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="h\wf_queue.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="h\wf_reactor.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="h\wf_socket.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="h\wf_stack.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="h\wf_stream.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="h\wf_string.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="h\wf_thread.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="h\wf_type.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="simpletao.rc">
+      <Filter>资源文件</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ReadMe.txt" />
+  </ItemGroup>
+</Project>

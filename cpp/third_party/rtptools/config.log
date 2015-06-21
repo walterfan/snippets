@@ -1,0 +1,142 @@
+This file contains any messages produced by compilers while
+running configure, to aid debugging if configure makes a mistake.
+
+configure:556: checking for a BSD compatible install
+configure:609: checking whether build environment is sane
+configure:666: checking whether make sets ${MAKE}
+configure:712: checking for working aclocal
+configure:725: checking for working autoconf
+configure:738: checking for working automake
+configure:751: checking for working autoheader
+configure:764: checking for working makeinfo
+configure:785: checking host system type
+configure:833: checking for gcc
+configure:946: checking whether the C compiler (gcc  ) works
+configure:962: gcc -o conftest    conftest.c  1>&5
+configure:988: checking whether the C compiler (gcc  ) is a cross-compiler
+configure:993: checking whether we are using GNU C
+configure:1002: gcc -E conftest.c
+configure:1021: checking whether gcc accepts -g
+configure:1053: checking how to run the C preprocessor
+configure:1074: gcc -E  conftest.c >/dev/null 2>conftest.out
+configure:1144: checking for a BSD compatible install
+configure:1209: checking for gethostbyname
+configure:1237: gcc -o conftest -g -O2 -Wall   conftest.c  1>&5
+configure:1311: checking for yp_match
+configure:1339: gcc -o conftest -g -O2 -Wall   conftest.c  1>&5
+/tmp/cc45p20H.o: In function `main':
+/home/walter/codelab/rtptools-1.18/configure:1333: undefined reference to `yp_match'
+collect2: ld returned 1 exit status
+configure: failed program was:
+#line 1316 "configure"
+#include "confdefs.h"
+/* System header to define __stub macros and hopefully few prototypes,
+    which can conflict with char yp_match(); below.  */
+#include <assert.h>
+/* Override any gcc2 internal prototype to avoid an error.  */
+/* We use char because int might match the return type of a gcc2
+    builtin and then its argument prototype would still apply.  */
+char yp_match();
+
+int main() {
+
+/* The GNU C library defines this for functions which it implements
+    to always fail with ENOSYS.  Some functions are actually named
+    something starting with __ and the normal name is an alias.  */
+#if defined (__stub_yp_match) || defined (__stub___yp_match)
+choke me
+#else
+yp_match();
+#endif
+
+; return 0; }
+configure:1361: checking for yp_match in -lnsl
+configure:1380: gcc -o conftest -g -O2 -Wall   conftest.c -lnsl   1>&5
+configure:1413: checking for socket
+configure:1441: gcc -o conftest -g -O2 -Wall   conftest.c -lnsl  1>&5
+configure:1514: checking for ANSI C header files
+configure:1527: gcc -E  conftest.c >/dev/null 2>conftest.out
+configure:1594: gcc -o conftest -g -O2 -Wall   conftest.c -lnsl  1>&5
+configure: In function 'main':
+configure:1589: warning: implicit declaration of function 'exit'
+configure:1589: warning: incompatible implicit declaration of built-in function 'exit'
+configure:1621: checking for search.h
+configure:1631: gcc -E  conftest.c >/dev/null 2>conftest.out
+configure:1621: checking for sys/time.h
+configure:1631: gcc -E  conftest.c >/dev/null 2>conftest.out
+configure:1621: checking for unistd.h
+configure:1631: gcc -E  conftest.c >/dev/null 2>conftest.out
+configure:1662: checking for gcc option to accept ANSI C
+configure:1715: gcc  -c -g -O2 -Wall  conftest.c 1>&5
+configure:1741: checking for function prototypes
+configure:1900: checking for working const
+configure:1954: gcc -c -g -O2 -Wall  conftest.c 1>&5
+configure: In function 'main':
+configure:1928: warning: unused variable 's'
+configure:1948: warning: unused variable 'foo'
+configure:1916: warning: unused variable 'zero'
+configure:1910: warning: unused variable 'x'
+configure:1930: warning: 't' is used uninitialized in this function
+configure:1945: warning: 'b' is used uninitialized in this function
+configure:1975: checking whether byte ordering is bigendian
+configure:1993: gcc -c -g -O2 -Wall  conftest.c 1>&5
+configure:2008: gcc -c -g -O2 -Wall  conftest.c 1>&5
+configure: In function 'main':
+configure:2003: error: 'not' undeclared (first use in this function)
+configure:2003: error: (Each undeclared identifier is reported only once
+configure:2003: error: for each function it appears in.)
+configure:2003: error: expected ';' before 'big'
+configure: failed program was:
+#line 1997 "configure"
+#include "confdefs.h"
+#include <sys/types.h>
+#include <sys/param.h>
+int main() {
+
+#if BYTE_ORDER != BIG_ENDIAN
+ not big endian
+#endif
+; return 0; }
+configure:2065: checking for uid_t in sys/types.h
+configure:2099: checking for off_t
+configure:2132: checking for pid_t
+configure:2165: checking for size_t
+configure:2198: checking whether time.h and sys/time.h may both be included
+configure:2212: gcc -c -g -O2 -Wall  conftest.c 1>&5
+configure: In function 'main':
+configure:2208: warning: unused variable 'tp'
+configure:2233: checking whether struct tm is in sys/time.h or time.h
+configure:2246: gcc -c -g -O2 -Wall  conftest.c 1>&5
+configure: In function 'main':
+configure:2242: warning: statement with no effect
+configure:2269: checking whether gcc needs -traditional
+configure:2315: checking return type of signal handlers
+configure:2337: gcc -c -g -O2 -Wall  conftest.c 1>&5
+configure: In function 'main':
+configure:2333: warning: unused variable 'i'
+configure:2356: checking for strftime
+configure:2384: gcc -o conftest -g -O2 -Wall   conftest.c -lnsl  1>&5
+configure:2368: warning: conflicting types for built-in function 'strftime'
+configure:2452: checking for vprintf
+configure:2480: gcc -o conftest -g -O2 -Wall   conftest.c -lnsl  1>&5
+configure:2464: warning: conflicting types for built-in function 'vprintf'
+configure:2560: checking for gethostname
+configure:2588: gcc -o conftest -g -O2 -Wall   conftest.c -lnsl  1>&5
+configure:2560: checking for gettimeofday
+configure:2588: gcc -o conftest -g -O2 -Wall   conftest.c -lnsl  1>&5
+configure:2560: checking for mktime
+configure:2588: gcc -o conftest -g -O2 -Wall   conftest.c -lnsl  1>&5
+configure:2560: checking for select
+configure:2588: gcc -o conftest -g -O2 -Wall   conftest.c -lnsl  1>&5
+configure:2560: checking for strdup
+configure:2588: gcc -o conftest -g -O2 -Wall   conftest.c -lnsl  1>&5
+configure:2572: warning: conflicting types for built-in function 'strdup'
+configure:2560: checking for strerror
+configure:2588: gcc -o conftest -g -O2 -Wall   conftest.c -lnsl  1>&5
+configure:2560: checking for strstr
+configure:2588: gcc -o conftest -g -O2 -Wall   conftest.c -lnsl  1>&5
+configure:2572: warning: conflicting types for built-in function 'strstr'
+configure:2560: checking for strtol
+configure:2588: gcc -o conftest -g -O2 -Wall   conftest.c -lnsl  1>&5
+configure:2560: checking for uname
+configure:2588: gcc -o conftest -g -O2 -Wall   conftest.c -lnsl  1>&5

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type='text/xsl' href='_UpgradeReport_Files/UpgradeReport.xslt'?><UpgradeLog>
+<Properties><Property Name="Solution" Value="simpletao">
+</Property><Property Name="Solution File" Value="D:\workspace\cpp\simpledao\snippet\vc\simpletao\simpletao.sln">
+</Property><Property Name="Date" Value="2014年9月22日">
+</Property><Property Name="Time" Value="20:40:08">
+</Property></Properties><Event ErrorLevel="0" Project="simpletao" Source="simpletao.vcproj" Description="Converting project file 'D:\workspace\cpp\simpledao\snippet\vc\simpletao\simpletao.vcproj'.">
+</Event><Event ErrorLevel="1" Project="simpletao" Source="simpletao.vcproj" Description="VCWebServiceProxyGeneratorTool is no longer supported. The tool has been removed from your project settings.">
+</Event><Event ErrorLevel="0" Project="simpletao" Source="simpletao.vcproj" Description="Done converting to new project file 'D:\workspace\cpp\simpledao\snippet\vc\simpletao\simpletao.vcxproj'.">
+</Event><Event ErrorLevel="3" Project="simpletao" Source="simpletao.vcproj" Description="Converted">
+</Event></UpgradeLog>

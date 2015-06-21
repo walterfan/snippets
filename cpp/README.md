@@ -1,0 +1,17 @@
+some test programs on cygwin or ubuntu
+
+Prerequisite
+------------------
+* Install protobuf
+1) download google protobuf from http://code.google.com/p/protobuf
+2) ./autogen.sh, ./configure, make, make install
+
+* set LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
+
+
+Reference
+-------------------
+## Protobuf
+* https://developers.google.com/protocol-buffers/docs/cpptutorial
+* http://www.cnblogs.com/Solstice/archive/2011/04/03/2004458.html

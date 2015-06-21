@@ -1,0 +1,25 @@
+import os
+
+LIB_PATH = "./lib/win32"
+LUA_PATH = os.environ['LUA_PATH']
+LUABIND_INC="D:\\workspace\\cpp\\luabind-0.9.1"
+LUABIND_LIB="D:\\workspace\\cpp\\luabind-0.9.1\\bin\\msvc-10.0\\debug"
+LUA_ROOT = os.environ['LUA_ROOT']
+BOOST_ROOT = os.environ['BOOST_ROOT']
+ACE_ROOT = os.environ['ACE_ROOT']
+GTEST_DIR = os.environ['GTEST_DIR']
+
+env = Environment(TARGET_ARCH='x86')
+env.Append( CPPPATH=[GTEST_DIR + '/include'] )
+env.Append( CPPPATH = ACE_ROOT)
+env.Append( CPPPATH=[BOOST_ROOT] )
+env.Append( CPPPATH=['com/algorithms'] )
+env.Append( CPPPATH=['./third_party'] )
+env.Append( CPPPATH=['./src'] )
+env.Append( CPPPATH=['./lib'] )
+
+#env.Program(target='./bin/algorithms_test', source=['./com/algorithms/UnitTest.cpp']
+#, LIBS = 'gtest', LIBPATH = ['./bin', LIB_PATH  ])
+
+env.Program(target='./bin/unittest', source=['./test/unittest.cpp', './test/functortest.cpp']
+, LIBS = ['gmock'], LIBPATH = ['./bin', LIB_PATH  ])
