@@ -1,0 +1,5 @@
+.poem {margin:2em 2em 2em 4em;float: right }
+.emphasized {font-style:italic;border:1px solid #888888;padding:0.5em}
+.odd{background-color:#ffffcc}
+.even{background-color:#cceeff}
+.table-heading{background-color:#eee;text-align:center;font-size:1.2em;padding:0.25em}

@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Walter Book Library</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<script src="./script/jquery.js" type="text/javascript"></script>
+<script src="./script/walter.js" type="text/javascript"></script>
+<link href="./style/booklib.css" rel="stylesheet" type="text/css" />
+<link href="./style/walter.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="central">
+	<div id="header">
+		<div id="title0"><a href="http://localhost">Walter's Book Library</a></div>
+  </div>
+    <ul id="navlist">
+      <li><a id="n1" href="borrow.htm">Home</a></li>
+      <li><a id="n2" href="borrow.htm">Borrow</a></li>
+      <li><a id="n3" href="borrow.htm">Return</a></li>
+      <li><a id="n4" href="borrow.htm">Manage</a></li>
+      <li><a id="n5" href="borrow.htm">Setting</a></li>
+      <li><a id="n6" href="borrow.htm">Links</a></li>
+      <li><a id="n7" href="borrow.htm">Login</a></li>
+    </ul>
+	<div id="content">
+		<div id="leftside">
+			<h3>Design Pattern</h3>
+			<div id="picture1"></div>
+			<h3>Code Complete</h3>
+			<div id="picture2"></div>
+		</div>
+		<div id="rightside">
+			<h1>New Books</h1>
+			<p>
+				 ${newBooks} <a href="default.jsp">more ...</a>
+			</p>
+			<h1>Recommend Books</h1>
+			<p>
+				${recommendBooks} <a href="default.jsp">more ...</a>
+			</p>
+			<h1>Notification</h1>
+			<p>
+				${notification} <a href="default.jsp">more ...</a>
+			</p>
+		</div>
+		<div class="poem">
+		I can accept failure, but I can't accept not trying
+		</div>
+
+		<div id="footer">
+		<table width="100%" cellspacing="4" cellpadding="0" border="0" align="center">
+  <tbody><tr>
+    <td height="20" align="center" class="copyright"><span>&copy;</span> 1999-<script language="JavaScript">
+datetoday = new Date();
+document.write(datetoday.getFullYear());
+</script> Walter Fan. All rights reserved.</td>
+  </tr>
+</tbody></table>
+		</div>
+	</div>
+	<div id="imagepreloader"><img src="image/buttonover.gif" alt="mouseover" /></div>
+</div>
+</body>
+</html>

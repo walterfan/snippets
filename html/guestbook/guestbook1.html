@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>GuestBook</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="http://cdn.bootcss.com/html5shiv/3.7.0/html5shiv.min.js"></script>
+        <script src="http://cdn.bootcss.com/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+	<link href="../jquery/css/ui-lightness/jquery-ui-1.10.4.custom.css" rel="stylesheet">
+	<script src="../jquery/js/jquery-1.10.2.js"></script>
+	<script src="../jquery/js/jquery-ui-1.10.4.custom.js"></script>
+
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="../bootstrap/js/bootstrap.min.js"></script>
+
+  <script>
+  $(function() {
+    $("#datepicker" ).datepicker();
+	$("#datepicker2").datepicker()
+  });
+  </script>
+  <style type="text/css">
+  body {
+    background-image:url('notebook_paper.jpg');
+    background-repeat:no-repeat;
+    background-attachment:fixed;
+    background-position:175px 5px;
+}
+   .container {width:960px;margin-left:250px; margin-top:10px}
+   .guestbook1 {
+    padding: 3px; 
+    background-color: #d9edf7;}
+	.divMsgs table { background-color:#eeeeee}
+    .guestbook1 form div {
+    background-color: #d9edf7;}
+    #InputEmail,#InputPhone,#InputTag {width:30%}
+    #btnAddMsg {width:20%; margin-left: 10px}
+    .guestbook1 form label {width:15%}
+    #tabCategory td {border: 1px solid  #428BCA}
+    </style>
+  </head>
+  <body >
+    <div class="container">
+        <div class="header text-center strong">
+                <div class="jumbotron guestbook1" ><h2>留言板 Guest book</h2></div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                <table id="tabCategory" class="table table-bordered table-hover">
+				<tr><td>全部</td></tr>
+                <tr>
+                    <td>思考</td>
+                </tr>
+                <tr>
+                    <td>问题</td>
+                </tr>
+                <tr>
+                    <td>推荐</td>
+                </tr>
+                <tr>
+                    <td>建议</td>
+                </tr>
+                <tr>
+                    <td>参考</td>
+                </tr>
+                <tr>
+                    <td>其他</td>
+                </tr>
+                </table>
+                <form class="form-search" role="search">
+                <input type="text" id="datepicker"  class="form-control" placeholder="Begin Date" >
+                <input type="text" id="datepicker2" class="form-control" placeholder="End Date">
+				<div class="input-group">
+
+                    <input type="text" class="form-control" placeholder="Search" name="srch-term" id="srch-term">
+                    <div class="input-group-btn">
+                        <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                    </div>
+                </div>
+                </form>
+				<h4>Tags:</h4>
+				<ul>
+				<li>project</li>
+				<li>cpp</li>
+				<li>django</li>
+				</ul>
+            </div>
+            <div class="col-md-10">
+            
+            <div class="panel panel-primary guestbook1" >
+            <form role="form" >
+              <div class="form-group">
+                <label for="InputTitle">Title:</label>
+                <input type="text" class="form-control" id="InputTitle" placeholder="Enter Title">
+              </div>
+              <div class="form-group">
+                <label for="InputContent">Content:</label>
+                <textarea rows="4" class="form-control" id="InputContent" placeholder="Content"></textarea>
+              </div>
+              <div class="form-horizontal form-group">
+                <label for="InputEmail">Email address:</label>
+                <input type="email" id="InputEmail" placeholder="Enter email">
+                <label for="InputPhone">Phone number:</label>
+                <input type="tel" id="InputPhone" placeholder="Enter Phone number">
+              </div>
+              <div  class="form-horizontal form-group">
+                <label for="InputTag">Tags: </label>
+                <input type="text" id="InputTag" placeholder="Enter Tags">
+                <label for="InputCategory">Category: </label>
+              <select id="InputCategory" name="category" class="list-inline">
+                    <option value="1" selected>思考</option>
+                    <option value="2">问题</option>
+                    <option value="3">推荐</option>
+                    <option value="4">建议</option>
+                    <option value="5">参考</option>
+                    <option value="0">其他</option>
+                </select> 
+              <button type="submit" id="btnAddMsg" class="btn btn-default">Submit</button>
+              </div>
+            </form>
+            </div>
+
+			<div class="divMsgs">
+                <table class="table table-bordered table-hover">
+                <tr bgcolor="#d9edd7">
+                    <td colspan="3">$Title</td>
+                    <td>$Category</td>
+                </tr>
+                <tr>
+                    <td colspan="4">$content</td>
+                </tr>
+                <tr>
+                    <td>$Author</td>
+                    <td>$CreateTime</td>                  
+                    <td>$Comments(2)
+					</td>
+					<td><div class="form-group text-right">
+					<button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-remove"></i></button>
+					<button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-edit"></i></button></div>
+					</td>
+					</td>
+					</tr>
+                </table>
+                <!-- table 2 -->
+                <table class="table table-bordered table-hover">
+                <tr bgcolor="#d9edd7">
+                    <td colspan="3">$Title</td>
+                    <td>$Category</td>
+                </tr>
+                <tr>
+                    <td colspan="4">$content</td>
+                </tr>
+                <tr>
+                    <td>$Author</td>
+                    <td>$CreateTime</td>  
+					<td>$Comments(2)</td>                
+                    <td><div class="form-group text-right">
+					<button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-remove"></i></button>
+					<button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-edit"></i></button></div>
+					</td>
+
+                </tr>
+                </table>
+            </div>
+			</div>
+        </div>
+        <div class="footer text-center strong">
+        <p>&copy; Company 2013</p>
+      </div>
+    </div>
+  </body>
+</html>
