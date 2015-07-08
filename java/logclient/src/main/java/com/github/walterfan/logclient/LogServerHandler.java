@@ -24,11 +24,12 @@ public class LogServerHandler extends ChannelHandlerAdapter {
 
 	@Override
 	public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-		ByteBuf buf = (ByteBuf)msg;
-		byte[] req = new byte[buf.readableBytes()];
-		buf.readBytes(req);
+		//ByteBuf buf = (ByteBuf)msg;
+		//byte[] req = new byte[buf.readableBytes()];
+		//buf.readBytes(req);		
+		//String body = new String(req, "UTF-8");
 		
-		String body = new String(req, "UTF-8");
+		String body = (String)msg;
 		System.out.println("received " + body);
 		Date now = new Date(System.currentTimeMillis());
 		String strResp = "GOT log message on " + now.toString();
