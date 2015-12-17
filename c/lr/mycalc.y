@@ -49,6 +49,15 @@ term
    ;
 primary_expression
    : DOUBLE_LITERAL
+   | LP expression RP
+   {
+
+      $$ = $2
+   }
+   | SUB DOUBLE_LITERAL
+   {
+      $$ = -$2
+   }
    ;
 %%
 
@@ -71,4 +80,5 @@ int main(void)
    }
 
 }
+
 
