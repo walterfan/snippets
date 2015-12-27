@@ -1,5 +1,5 @@
 # Walter created on 5/1/2012
-USER_DEPTH=../../..
+USER_DEPTH=../..
 
 CXX = g++
 AR  = ar
@@ -19,8 +19,6 @@ ifeq ($(UNAME_S),Linux)
     PLATFORM = linux
 endif
 
-TEST_TOOL_INC=$(BASE_DIR)/third_party
-TEST_TOOL_LIB_DIR=$(BASE_DIR)/lib/$(PLATFORM)
 
 LD_FLAGS = -lpthread -lc -lm -lz -ldl
 #-L$(TEST_TOOL_LIB_DIR)
@@ -37,16 +35,10 @@ ifndef SRTP_DIR
 	SRTP_DIR=$(USER_DEPTH)/libsrtp
 endif
 
-ifndef GMOCK_DIR
-    GMOCK_DIR=$(TEST_TOOL_INC)
-    GTEST_DIR=$(TEST_TOOL_INC)
-    GMOCK_LIB_DIR=${TEST_TOOL_LIB_DIR}
-    GTEST_LIB_DIR=${TEST_TOOL_LIB_DIR}
-else
-	GTEST_DIR = $(GMOCK_DIR)/gtest
-	GMOCK_LIB_DIR=${GMOCK_DIR}/lib/.libs
-	GTEST_LIB_DIR=${GTEST_DIR}/lib/.libs
-endif
+GMOCK_DIR=$(USER_DEPTH)/googlemock
+GTEST_DIR=$(USER_DEPTH)/googlemock/gtest
+GMOCK_LIB_DIR=$(USER_DEPTH)/googlemock/lib/.libs
+GTEST_LIB_DIR=$(USER_DEPTH)/googlemock/gtest/lib/.libs
 
 LD_FLAGS += -L$(BOOST_ROOT)/stage/lib -L$(GTEST_LIB_DIR) -L$(GMOCK_LIB_DIR) 
 #-lgmock -lgtest
@@ -130,7 +122,7 @@ timeserver:  $(TEST_DIR)/timeserver.o
 	
 unittest:$(UNIT_TEST_OBJS) $(SRTP_STATIC_LIB) $(GMOCK_STATIC_LIB) $(GTEST_STATIC_LIB) 
 	@if [ ! -d $(BIN_DIR) ]; then mkdir -p $(BIN_DIR); fi
-	$(CXX) $(CXX_FLAGS) -o $@ $^ $(LD_FLAGS) -lboost_system -lboost_thread
+	$(CXX) $(CXX_FLAGS) -o $@ $^ $(LD_FLAGS)
 
 $(WF_TEST):$(WF_TEST_OBJS) 
 	@if [ ! -d $(BIN_DIR) ]; then mkdir -p $(BIN_DIR); fi
