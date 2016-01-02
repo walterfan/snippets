@@ -33,16 +33,16 @@ class CThreadTask: public IRunnable, public ICallable
 public:
 	CThreadTask() {
         m_thread_id = pthread_self();
-		cout<<" construct @"<<this<<endl;	
+		print_address("CThreadTask construct ",this);	
 	}
     virtual ~CThreadTask() {
-		cout <<" destruct @"<<this<<endl;
+		print_address("CThreadTask destruct ",this);  
 	}
 	virtual void run() {
-		cout<<" run @"<<this<<endl;
+		print_address("CThreadTask run ",this);
 	}
 	virtual void* call(void* pParam) {
-		cout<<" call @"<<this<<endl;
+		print_address("CThreadTask call ",this);
         return NULL;
 	}
 protected:
@@ -54,7 +54,7 @@ public:
     CJobTask():m_job_count(0) {}
     void on_timer(long timestamp, void* pParam)
     {
-        cout <<" on_timer @"<<this<<endl;
+        cout <<"CJobTask on_timer @"<<this<<endl;
         ++m_job_count;
     }
     virtual ~CJobTask() {}
@@ -65,21 +65,38 @@ protected:
 class CThreadJob: public CThreadTask, public CJobTask
 {
 public:
+
+    typedef void  (CThreadTask::*FnRunPtr)(void);    
+    typedef void* (CThreadTask::*FnCallPtr)(void*);
+    typedef void  (CJobTask::* FnOnTimerPtr)(long timestamp, void* pParam);
+    typedef void  (CThreadJob::*FnDumpPtr)(void);
+
+
     CThreadJob(const char* szJob): m_job_name(szJob) {}
+
     void dump() {
+        printf("--- CThreadJob::dump ---, m_job_name size = %d\n", sizeof(m_job_name));
         print_address("CThreadJob::this", (CThreadJob*)this);
         print_address("CThreadTask::this", (CThreadTask*)this);
         print_address("CJobTask::this", (CJobTask*)this);
         print_address("IRunnable::this", (IRunnable*)this);
         print_address("ICallable::this", (ICallable*)this);
-        print_address("CThreadTask::run()", (void*)&CThreadTask::run);
-        print_address("CThreadTask::call()", (void*)&CThreadTask::call);
-        print_address("CJobTask::on_timer()", (void*)&CJobTask::on_timer);
-        print_address("CThreadJob::dump()", (void*)&CThreadJob::dump);
+        
+        FnRunPtr pFn      = &CThreadTask::run; 
+        FnCallPtr pFnCall = &CThreadTask::call;
+        FnOnTimerPtr pFnOnTimer = &CJobTask::on_timer;
+        FnDumpPtr pFnDump       = &CThreadJob::dump;
+
+        print_address("CThreadTask::run()",   *((void**)&pFn));
+        print_address("CThreadTask::call()",  *((void**)&pFnCall));
+        print_address("CJobTask::on_timer()", *((void**)&pFnOnTimer));
+        print_address("CThreadJob::dump()",   *((void**)&pFnDump));
+
         print_address("m_thread_id", &m_thread_id);
         print_address("m_job_count", &m_job_count);
         print_address("m_job_name", &m_job_name);
     }
+
     virtual ~CThreadJob() {}
 private:
     string m_job_name;
@@ -118,15 +135,19 @@ TEST(PointerTest, pointponter)
 }
 
 TEST(PointerTest, ClassAddress) {
-	CThreadTask* pTask = new CThreadTask();
+    size_t nPtrSize = sizeof(void*);
+    size_t nThreadIdSize = sizeof(pthread_t);
+    size_t nLongSize = sizeof(long);
+    printf("pointer size=%d, pthread_t size=%d, long type size=%d\n", nPtrSize, nThreadIdSize, nLongSize);
+    CThreadTask* pTask = new CThreadTask();
     print_address("pTask", pTask);
-	IRunnable* pRunnable = pTask;
-	print_address("pRunnable", pRunnable);
-	pRunnable->run();
-	ICallable* pCallable = pTask;
-	print_address("pCallable", pCallable);
-	int a = 3;
-	pCallable->call(&a);
+    IRunnable* pRunnable = pTask;
+    print_address("pRunnable", pRunnable);
+    pRunnable->run();
+    ICallable* pCallable = pTask;
+    print_address("pCallable", pCallable);
+    int a = 3;
+    pCallable->call(&a);
     delete pTask;
     CThreadJob* pJob = new CThreadJob("TestJob");
     pJob->dump();

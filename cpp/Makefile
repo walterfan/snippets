@@ -170,7 +170,7 @@ examples:
 	$(CXX) $(CXX_FLAGS) -o ./bin/udpserver ./exam/udpserver.cpp
 	$(CXX) $(CXX_FLAGS) -o ./bin/tcpclient ./exam/tcpclient.cpp
 	$(CXX) $(CXX_FLAGS) -o ./bin/tcpserver ./exam/tcpserver.cpp
-#	$(CXX) $(CXX_FLAGS) -o ./bin/sniffer   ./test/sniffer.cpp -lpcap
+	$(CXX) $(CXX_FLAGS) -o ./bin/calculator  ./exam/calculator.cpp
 
 clean:
 	rm -f bin/* src/*.o test/*.o exam/*.o ./unittest ./*.exe ./logfile

@@ -1,0 +1,4 @@
+env = Environment()
+env.Append(CPPFLAGS=['-pthread', '-Wall', '-g'])
+env.Program(target = 'bin/bitree', source = ["bitree.c"])
+env.Program(target = 'bin/code', source = ["code.c"])
