@@ -1,0 +1,6 @@
+import os
+
+env = Environment()
+#env.Append( CPPPATH=['./inc'] )
+
+env.Program(target='pearls', source=['./launch.cpp', './Calculator.cpp'])
