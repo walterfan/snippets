@@ -26,9 +26,11 @@ typedef struct {
 class Calcultor
 {
 public:	
-	int cal(char* expression);
+	int calculate(char* expression);
 	int parse(char* expression);
-
+private:
+    string m_strExp;
+    int m_nPos
 };
 
 
@@ -48,8 +50,8 @@ char* get_cur_time(char* buffer, int len=30)
 
 int main(int argc, char* argv[])
 {
-	char str[30] = {'\0'};
-    	printf("# [%s] --- calculator ---\n", get_cur_time(str));
+    char str[30] = {'\0'};
+    printf("# [%s] --- calculator ---\n", get_cur_time(str));
 
 	return 0;
 }
