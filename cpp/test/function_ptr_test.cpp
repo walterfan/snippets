@@ -13,12 +13,14 @@ void hexdump(char *p, int s, FILE* fd=stderr) {
 	}     
 	fprintf(fd, "\n"); 
 }
+
 class Printable
 {
 public:
 	virtual int print() = 0;
 
 };
+
 class Shape {
 public:
 	Shape(): m_color(0) {}
@@ -55,9 +57,12 @@ private:
 	double m_end_y;
 };
 
-typedef int  (Line::*DRAW_FN_PTR)();
-typedef void (Line::*DUMP_FN_PTR)();
-typedef int  (Line::*PRINT_FN_PTR)();
+typedef int  (Line::*LINE_DRAW_FN_PTR)();
+typedef void (Line::*LINE_DUMP_FN_PTR)();
+typedef int  (Line::*LINE_PRINT_FN_PTR)();
+
+typedef int  (Printable::*PRINT_FN_PTR)();
+typedef int  (Shape::*DRAW_FN_PTR)();
 
 int main(int argc, char* argv[])
 {
@@ -85,16 +90,22 @@ int main(int argc, char* argv[])
 	printf("Printable size=%lu, pointer is %p\n",  sizeof(Printable), (Printable*)pLine);
 
 	//get the member function address and call it
-	DRAW_FN_PTR pDrawFn = &Line::draw;
+	LINE_DRAW_FN_PTR pDrawFn = &Line::draw;
 	(pLine->*pDrawFn)();
 
-	DUMP_FN_PTR pDumpFn = &Line::dump;
+	LINE_DUMP_FN_PTR pDumpFn = &Line::dump;
 	(pLine->*pDumpFn)();
 
-	PRINT_FN_PTR pPrintFn = &Line::print;
+	LINE_PRINT_FN_PTR pPrintFn = &Line::print;
 	(pLine->*pPrintFn)();
 
 	printf("Line::draw address=%p, Line::dump address=%p, Line::print address=%p\n", pDrawFn, pDumpFn, pPrintFn);
+
+	DRAW_FN_PTR pDrawFn2 = &Shape::draw;
+	PRINT_FN_PTR pPrintFn2 = &Printable::print;
+
+	printf("Shape::draw address=%p\n", pDrawFn2);
+	printf("Printable::print address=%p\n", pPrintFn2);
 
 	delete pCircle;
 	delete pLine;
