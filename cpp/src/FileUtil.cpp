@@ -1,6 +1,9 @@
 #include "wf_util.h"
+#include "StringUtil.h"
 #include "FileUtil.h"
+
 using namespace std;
+using namespace wfan;
 
 namespace wfan {
 
@@ -37,7 +40,7 @@ int file2msg(const char* filename,char *msg)
     return 0;
 }
 
-int RetrieveFiles(const char* szFolder, vector<string>& files)
+int RetrieveFiles(const char* szFolder, vector<string>& vecFiles, const char* szExt)
 {
   struct dirent* direntp;
   DIR* dirp = opendir(szFolder);
@@ -50,12 +53,33 @@ int RetrieveFiles(const char* szFolder, vector<string>& files)
     string file = direntp->d_name;
     if(".." == file || "." == file)
         continue;
-    files.push_back(file);
+    
+    string strPath = szFolder;
+    strPath.append("/");
+    strPath.append(file);
+
+    struct stat stFileInfo;
+    int nStatus = stat(strPath.c_str(), &stFileInfo);
+    if (nStatus == 0 && S_ISDIR(stFileInfo.st_mode )) {
+        RetrieveFiles(strPath.c_str(), vecFiles, szExt);
+    }
+
+
+
+    if(NULL == szExt) {
+      vecFiles.push_back(strPath);
+    }
+    else {
+      bool hasSuffix = endswith(strPath, szExt);
+      if(hasSuffix) {
+        vecFiles.push_back(strPath);
+      }
+    }
   }
 
   while((-1 == closedir(dirp)) && (errno == EINTR));
 
-  return files.size();
+  return vecFiles.size();
 }
 
 }

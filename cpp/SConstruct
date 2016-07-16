@@ -5,9 +5,24 @@ GTEST_DIR=GMOCK_DIR + "/gtest"
 
 
 env = Environment()
-env.Append( CPPPATH=[GMOCK_DIR + "/include", GTEST_DIR + "/include", "./src", "./lib"] )
+env.Append(LINKFLAGS='-lm')
+env.Append(CPPPATH=["/usr/local/include", GMOCK_DIR + "/include", GTEST_DIR + "/include", "./src", "./lib"] )
+env.Append(CCFLAGS = '-Wall -g -O1 -static -std=c++11 ')
+env.Append(LIBPATH=["/usr/local/lib"])
 
-env.Program(target='./bin/function_ptr_test', source=['./test/function_ptr_test.cpp'])
+basic_test=env.Program(target='./bin/function_ptr_test', source=['./test/function_ptr_test.cpp'])
 
-env.Program(target='./bin/unittest', source=['./test/unittest.cpp', './test/functortest.cpp', GTEST_DIR + "/lib/.libs/libgtest.a", GMOCK_DIR + "/lib/.libs/libgmock.a"])
+algotest=env.Program(target='./bin/HuffmanCodeTest', source=['./com/algorithms/HuffmanCode.cpp'])
+
+unittest=env.Program(target='./bin/unittest', source=['./test/unittest.cpp', 
+	'./test/functortest.cpp', 
+	'./test/stltest.cpp', 
+	'./test/smart_ptr_test.cpp',
+	GTEST_DIR + "/lib/.libs/libgtest.a", GMOCK_DIR + "/lib/.libs/libgmock.a"])
+
+text2image=env.Program(target='./bin/text2image', source=['./src/text2image.cpp'], LINKFLAGS='-lgd -lpng -lz -ljpeg -lfreetype -lm')
+
 #, LIBS = ['gmock', 'gtest'], LIBPATH = ['./bin', GMOCK_DIR + "/lib/.libs", GTEST_DIR + "/lib/.libs" ])
+#Default(basic_test)
+Default(unittest)
+

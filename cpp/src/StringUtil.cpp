@@ -1,4 +1,4 @@
-#include "wf_util.h"
+#include "StringUtil.h"
 
 char* get_cur_info(char* szBuf, int len)
 {
@@ -133,6 +133,18 @@ string TrimSuffix(const string& filename)
         return strfile.substr(0,nlastdot);
     else
         return strfile;
+}
+
+bool endswith(const std::string &str, const std::string &suffix)
+{
+  string::size_type totalSize = str.size();
+  string::size_type suffixSize = suffix.size();
+
+  if(totalSize < suffixSize) {
+    return false;
+  }
+
+  return str.compare(totalSize - suffixSize, suffixSize, suffix) == 0;
 }
 
 } /* namespace wfan */

@@ -49,37 +49,6 @@ inline void error(int status,int err, const char* fmt, ...)
     	exit(status);
 }
 
-int file2msg(const char* filename,string& msg);
-
-int file2msg(const char* filename,char *msg);
-
-string Trim(const string& s);
-
-string LowerCase(const string& s);
-
-string UpperCase(const string& s);
-
-/*************************************     
-     *Function:        Basename
-     *Description:   Trim path and extend name of filename
-*Parameters:  string filename
-*Return:       string filename without suffix
-     *************************************/
-string Basename(const string& filename);
-/*************************************     
-     *Function:        GetDateStr
-     *Description:   get datestring, such as 20041118
-*Parameters:  string filename
-*Return:       string filename without suffix
-     *************************************/
-string GetDateStr();
-/*************************************     
-     *Function:        TrimSuffix
-     *Description:   Trim file extend name
-*Parameters:  string filename
-*Return:       string filename without suffix
-     *************************************/
-string TrimSuffix(const string& filename);
 
 //--------------template class --------------------//
 
@@ -144,15 +113,6 @@ int msg2file(const char* filename,const T message)
     return 0;
 }
 
-inline int String2File(string str, string filename)
-{
-	return msg2file(filename.c_str(), str);
-}
-
-inline int File2String(string strFilename, string& str)
-{
-    return file2msg(strFilename.c_str(), str);
-}
 
 }//namespace wfan
 

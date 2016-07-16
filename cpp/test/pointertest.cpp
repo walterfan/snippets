@@ -153,3 +153,17 @@ TEST(PointerTest, ClassAddress) {
     pJob->dump();
     delete pJob;
 }
+
+void GetVar(string& strVar) {
+	string str = "testvar";
+	strVar = str;
+}
+
+TEST(PointerTest, ReferenceLife) {
+	string strVar;
+	GetVar(strVar);
+	cout<<"strVar="<<strVar<<endl;
+
+}
+
+

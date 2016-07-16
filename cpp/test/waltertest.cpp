@@ -3,6 +3,7 @@
 #include "wf_common.h"
 #include "NetworkUtil.h"
 #include "FileUtil.h"
+#include "StringUtil.h"
 #include "algorithms/wf_sort.h"
 
 using namespace std;
@@ -47,6 +48,13 @@ int test(int argc, char *argv[])
 
     uint32_t  nLen = 102 << 2;
     printf("nLen = %d  ", nLen);
+    msg_trace("--- new test ---");
+
+    string xmlPath = "/opt/webex/ivr/scripts/customized/quintiles/quintiles.xml";
+    string prefix = "/opt/webex/ivr/scripts/";
+
+    string xmlFile = xmlPath.substr(prefix.length());
+    msg_trace("xmlFile: "<<xmlFile);
     return 0;
 }
 
@@ -72,7 +80,18 @@ int main(int argc, char *argv[])
         for_each (files.begin(), files.end(), list_file);
         std::cout<<"--- EOF ---"<<endl;
         
-	}
+	} else {
+
+        msg_trace("--- new test ---");
+
+        string xmlPath = "/opt/webex/ivr/scripts/customized/quintiles/quintiles.xml";
+        string prefix = "/opt/webex/ivr/scripts/";
+
+        string xmlFile = xmlPath.substr(prefix.length());
+        msg_trace("xmlFile: "<<xmlFile);
+        
+    }
+
 	msg_trace("--- end ---");
 	return nRet;
 }

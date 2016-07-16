@@ -4,6 +4,7 @@
 #include <ctime>
 #include <sstream>
 #include <fstream>
+#include <deque>
 
 using namespace std;
 using namespace testing;
@@ -82,3 +83,16 @@ TEST(StlTest, IostreamTest)
 
 }
 
+
+TEST(StlTest, DequeTest) 
+{
+    deque<int> Q;
+    //cout<<"Q.back(): "<<Q.back()<<endl;
+    Q.push_back(3);
+    Q.push_front(1);
+    Q.insert(Q.begin() + 1, 2);
+
+    int& lastNum=Q.back();
+    cout<<"deque end is " <<lastNum<<endl;
+
+}

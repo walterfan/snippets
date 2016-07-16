@@ -40,7 +40,8 @@ GTEST_DIR=$(USER_DEPTH)/googlemock/gtest
 GMOCK_LIB_DIR=$(USER_DEPTH)/googlemock/lib/.libs
 GTEST_LIB_DIR=$(USER_DEPTH)/googlemock/gtest/lib/.libs
 
-LD_FLAGS += -L$(BOOST_ROOT)/stage/lib -L$(GTEST_LIB_DIR) -L$(GMOCK_LIB_DIR) 
+LD_FLAGS += -L$(BOOST_ROOT)/stage/lib -L/usr/local/lib -lgmock -lgtest
+#-L$(GTEST_LIB_DIR) -L$(GMOCK_LIB_DIR) 
 #-lgmock -lgtest
 
 LUA_ROOT=$(TEST_TOOL_INC)/lua
@@ -48,7 +49,7 @@ LUA_BIND_ROOT=$(TEST_TOOL_INC)/luabind-0.9.0
 
 C_FLAGS =  -DLINUX -D_XOPEN_SOURCE=500 -D_BSD_SOURCE -Wall -g 
 
-INC_FLAGS = -I$(INC_DIR) -I$(SRC_DIR) -I. \
+INC_FLAGS = -I$(INC_DIR) -I$(SRC_DIR) -I. -I/usr/local/include \
 	-I/usr/include/libxml2 \
 	-I../h -I./inc -I./src \
 	-I./com \
@@ -120,7 +121,7 @@ timeserver:  $(TEST_DIR)/timeserver.o
 	@if [ ! -d $(BIN_DIR) ]; then mkdir -p $(BIN_DIR); fi
 	$(CXX) $(CXX_FLAGS) -o $(BIN_DIR)/timeserver $^ $(LD_FLAGS)
 	
-unittest:$(UNIT_TEST_OBJS) $(SRTP_STATIC_LIB) $(GMOCK_STATIC_LIB) $(GTEST_STATIC_LIB) 
+unittest:$(UNIT_TEST_OBJS) $(SRTP_STATIC_LIB)  
 	@if [ ! -d $(BIN_DIR) ]; then mkdir -p $(BIN_DIR); fi
 	$(CXX) $(CXX_FLAGS) -o $@ $^ $(LD_FLAGS)
 
@@ -173,4 +174,4 @@ examples:
 	$(CXX) $(CXX_FLAGS) -o ./bin/calculator  ./exam/calculator.cpp
 
 clean:
-	rm -f bin/* src/*.o test/*.o exam/*.o ./unittest ./*.exe ./logfile
+	rm -rf bin/* src/*.o test/*.o exam/*.o ./unittest ./*.exe ./logfile

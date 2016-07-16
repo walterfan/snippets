@@ -9,6 +9,8 @@ Prerequisite
 * set LD_LIBRARY_PATH
 export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
 
+## text2image
+scons -Q ./bin/text2image
 
 Reference
 -------------------

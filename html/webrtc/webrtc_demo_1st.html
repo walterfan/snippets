@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+   	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="language" content="en" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>WebRTC Demo</title>
+
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+		
+	<base target="_blank">
+	<style>
+	video {
+	  object-fit: cover;
+	}
+
+	@media screen and (min-width: 1000px) {
+	  video {
+	    height: 480px;
+	  }
+	}
+	</style>
+  </head>
+  <body>
+  <div id="container">
+    <h1>WebRTC demo 1</h1>
+
+
+	<video autoplay></video>
+	</div>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="js/jquery-1.11.2.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+	<script>
+	
+	navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+
+	var constraints = {audio: false, video: true};
+	var video = document.querySelector('video');
+
+	function successCallback(stream) {
+	  console.log('navigator.getUserMedia successfully ');
+	  window.stream = stream; // stream available to console
+	  if (window.URL) {
+	    video.src = window.URL.createObjectURL(stream);
+	  } else {
+	    video.src = stream;
+	  }
+	}
+
+	function errorCallback(error){
+	  console.log('navigator.getUserMedia error: ', error);
+	}
+	console.log('start ');
+	navigator.getUserMedia(constraints, successCallback, errorCallback);
+	
+	</script>
+  </body>
+</html>
