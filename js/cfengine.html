@@ -1,0 +1,141 @@
+ <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+<title> cfengine test </title>
+<script type='text/javascript' src='./jquery-min.js'></script>
+<script type='text/javascript' src='./cfengine.js'></script>
+</head>
+<body>
+<center><h1>Tahoe Javascript Engine test page </h1></center>
+<script type="text/javascript">
+//(function(){ //wrapped in an anon function to avoid polluting global namespace
+
+//----------------tahoe object definition ---------------------//
+	var tahoe = {};
+	
+	tahoe.Variable = function(name) {
+		this.name= name;
+		this.value="";
+		this.setValue=function(val) {
+			this.value = val;
+			console.log("setValue, " + this.name + "'s value=" + this.value);
+		}
+		
+		this.getValue=function(val) {
+			return this.value;
+		}
+	};
+	
+    tahoe.Context = function() {
+		this.ConnectVOIP = new tahoe.Variable("ConnectVOIP");
+		this.ConnectPasscode = new tahoe.Variable("ConnectPasscode");
+		this.ConnectAttendeeId = new tahoe.Variable("ConnectAttendeeId");
+		this.MCTUACall = new tahoe.Variable("MCTUACall");
+	};
+
+    tahoe.Call = function() {
+		this.params = new Array();
+		this.setParam = function(name, value) {
+			this.params[name] = value
+			console.log("call.setParam, name=" + name + ", value=" + value);
+		};
+		this.getParam = function(name) {
+			return this.params[name];			
+		};
+	};
+
+    tahoe.Event = function() {
+        this.params = new Array();
+		this.setParam = function(name, value) {
+			this.params[name] = value
+			console.log("call.setParam, name=" + name + ", value=" + value);
+		};
+		this.getParam = function(name) {
+			return this.params[name];			
+		};
+    };
+	
+    var event = new tahoe.Event();
+    var call = new tahoe.Call();
+    var context = new tahoe.Context();
+
+	event.setParam("To", "sip:ConnectVOIP-abc-123@def.com");
+//#############################################################//	
+//----------------tahoe java script begin ---------------------//
+	if (event.getParam('To').indexOf ('sip:') >= 0) {
+		var temp = event.getParam('To').split('sip:');
+		console.log(temp);
+		if (temp.length > 1) {
+			var requestHeader=temp[1].split('@');
+			if (requestHeader.length > 1 && requestHeader[0].indexOf ('ConnectVOIP-') == 0) {
+				var headerFrags = requestHeader[0].split ('-');
+				console.log("headerFrags=" + headerFrags);
+				if (headerFrags.length > 2) {
+					// Josh Chen added to differ the normal call and Connect call. Jun 28, 2005
+					// callMode == 1 normal call
+					// callMode == 2 Connect call
+					call.setParam('callMode', 2);
+					context.ConnectVOIP.setValue(true);
+					context.ConnectPasscode.setValue(headerFrags[1]);
+					context.ConnectAttendeeId.setValue(headerFrags[2]);
+				}
+			}else if (requestHeader.length > 1 && requestHeader[0].indexOf ('MCTUA-') == 0)
+			{
+			  context.MCTUACall.setValue(true);
+			}
+		}
+	}
+//----------------tahoe java script end ---------------------//	
+//#############################################################//
+//})();
+</script>
+<hr/>
+<pre style="background-color:#EEEEEE">
+&lt;script&gt;
+//----------------tahoe java script begin ---------------------//
+&lt;![CDATA[
+	if (event.getParam('To').indexOf ('sip:') >= 0) {
+		var temp = event.getParam('To').split('sip:');
+		if (temp.length > 1) {
+			var requestHeader=temp[1].split('@');
+			if (requestHeader.length > 1 && requestHeader[0].indexOf ('ConnectVOIP-') == 0) {
+				var headerFrags = requestHeader[0].split ('-');
+				if (headerFrags.length > 2) {
+					// Josh Chen added to differ the normal call and Connect call. Jun 28, 2005
+					// callMode == 1 normal call
+					// callMode == 2 Connect call
+					call.setParam('callMode', 2);
+					context.ConnectVOIP.setValue(true);
+					context.ConnectPasscode.setValue(headerFrags[1]);
+					context.ConnectAttendeeId.setValue(headerFrags[2]);
+				}
+			}else if (requestHeader.length > 1 && requestHeader[0].indexOf ('MCTUA-') == 0)
+			{
+			  context.MCTUACall.setValue(true);
+			}
+		}
+	}
+]]&gt;
+//----------------tahoe java script end ---------------------//
+&lt;/script&gt;
+</pre>
+<hr/>
+<div name="outDiv" id="outDiv">
+<h3>Output: </h3>
+<script type="text/javascript">
+//(function(){ //wrapped in an anon function to avoid polluting global namespace
+document.writeln("call.callMode=" + call.getParam('callMode'));
+document.writeln("\n<br/>");
+document.writeln("context.ConnectPasscode=" + context.ConnectPasscode.getValue());
+document.writeln("\n<br/>");
+document.writeln("context.ConnectAttendeeId=" + context.ConnectAttendeeId.getValue());
+//})();
+</script>
+</div>
+
+<div name="logDiv" id="logDiv">
+
+</div>
+</body>
+</html>

@@ -1,0 +1,201 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+<title> Javascript OOP </title>
+
+
+<script type="text/javascript">
+
+
+
+ </script> 
+ </head>
+
+ <body>
+<script type="text/javascript">
+document.writeln("--- JavaScript Test being---\n<br/>");
+
+var strConfKey = "";
+var strTarget = "wbxconf: 123456789  ";
+var nBeginPos = strTarget.indexOf("conf:");
+if(nBeginPos >= 0) {
+	nBeginPos += 5;
+	var nEndPos = strTarget.indexOf("@");
+	if(nEndPos > 0) {
+		strConfKey = strTarget.substring(nBeginPos, nEndPos)
+	} else {
+		strConfKey = strTarget.substring(nBeginPos, strTarget.length)
+	}
+}
+strConfKey = strConfKey.trim()
+console.log("nBeginPos=" + nBeginPos);
+console.log("strConfKey=" + strConfKey)
+
+document.writeln("--- JavaScript Test end ---\n<br/>/" + strConfKey + "/");
+
+</script> 
+
+  <script>
+
+	var tahoe = {};
+	
+	tahoe.Variable = function(name) {
+		this.name= name;
+		this.value="";
+		this.setValue=function(val) {
+			this.value = val;
+			console.log("setValue, " + this.name + "'s value=" + this.value);
+		}
+		
+		this.getValue=function(val) {
+			return this.value;
+		}
+	};
+	
+    
+
+    tahoe.Call = function() {
+		this.params = new Array();
+		this.setParam = function(name, value) {
+			this.params[name] = value
+			console.log("call.setParam, name=" + name + ", value=" + value);
+		};
+		this.getParam = function(name) {
+			return this.params[name];			
+		};
+	};
+
+    tahoe.Event = function() {
+    	this.value = "";
+        this.params = new Array();
+		this.setParam = function(name, value) {
+			this.params[name] = value
+			console.log("call.setParam, name=" + name + ", value=" + value);
+		};
+		this.getParam = function(name) {
+			return this.params[name];			
+		};
+		this.setValue = function(name) {
+			this.value = name;
+			console.log("call.setValue, value=" + this.value);			
+		};
+    };
+	
+    tahoe.Context = function() {
+		this.inputParams = new tahoe.Event();
+		this.parsedParams = new tahoe.Event();
+		this.connectRspParams = new tahoe.Event();
+		this.ConnectVOIP = new tahoe.Variable("ConnectVOIP");
+		this.ConnectPasscode = new tahoe.Variable("ConnectPasscode");
+		this.ConnectAttendeeId = new tahoe.Variable("ConnectAttendeeId");
+		this.MCTUACall = new tahoe.Variable("MCTUACall");
+		this.result = new tahoe.Event();
+	};
+	
+    var event = new tahoe.Event();
+    var call = new tahoe.Call();
+    var context = new tahoe.Context();
+
+              var ret;
+              var desc;
+              var dtmfSeqArr;
+              var flag;
+              ret = 0;
+              result=0;
+              desc="Success";
+              
+              function splitDTMFSequence(){
+                var str;
+                var myReT;
+                var tmpStr;
+                var validateReT;
+                var tmpValidate;
+                var validStr;
+                
+                str="P30D83453790#P6D1123#";
+                //context.dtmfSequence.toString()"";
+                console.log("dtmfSequence=" + str)
+                // The length of DTMFSequence is greater than 2047.
+                if(str.length > 2047){
+                  ret = 1;
+                  desc = "The length of DTMFSequencemust be less than 2047.";
+                  return;
+                }
+              
+              //split DTMFSequence
+              myReT=/[TP][1-9]d{0,2}[HD][0-9*#]{1,32}/g;
+              dtmfSeqArr=new Array();
+              tmpStr = myReT.exec(str);
+              //convert tmpStr to string
+              tmpStr+="";
+              if(tmpStr!="null"){
+                validStr=tmpStr;
+              }
+              //lastIndex point to the next matching position
+              while(myReT.lastIndex) 
+              {
+                if(tmpStr.substring(0,1)=="T"){
+                  // check dtmfsequence validatation,
+                  // 1) T[n]H[d]must be gemination.
+                  // 2) T value must between 1 and 999.
+                  // 3) the max length of H value is 32
+                  validateReT=/(^T[1-9]d{0,2}H[0-9*#]{1,32})+/;
+                  tmpValidate=validateReT.test(tmpStr);
+                  if(!tmpValidate){
+                    ret = 2;
+                    desc = "The dtmf sequence is not valid,TH format is wrong";
+                    return;
+                  }
+                  dtmfSeqArr=dtmfSeqArr.concat(tmpStr.substring(0,1));   
+                  dtmfSeqArr=dtmfSeqArr.concat(tmpStr.substring(1,tmpStr.indexOf("H")));
+                  dtmfSeqArr=dtmfSeqArr.concat(tmpStr.substring(tmpStr.indexOf("H")+1,tmpStr.length));
+                }
+                if(tmpStr.substring(0,1)=="P"){
+                  // check dtmfsequence validatation,
+                  // 1) P[n]D[d] must be gemination.
+                  // 2) P value must between 1 and 999.
+                  // 3) the max length of D value is 32
+                  validateReT=/(^P[1-9]d{0,2}D[0-9*#]{1,32})+/;
+                  tmpValidate=validateReT.test(tmpStr);
+                  if(!tmpValidate){
+                    ret = 3;
+                    desc = "The dtmf sequence is not valid,PD format is wrong";
+                    return;
+                  }
+                  dtmfSeqArr=dtmfSeqArr.concat(tmpStr.substring(0,1));   
+                  dtmfSeqArr=dtmfSeqArr.concat(tmpStr.substring(1,tmpStr.indexOf("D")));
+                  dtmfSeqArr=dtmfSeqArr.concat(tmpStr.substring(tmpStr.indexOf("D")+1,tmpStr.length));
+                }
+                tmpStr = myReT.exec(str);
+                tmpStr+=""; 
+                if(tmpStr!="null"){
+                  validStr=validStr+tmpStr;
+                }
+              }
+              if(validStr == null || validStr.length != str.length){
+                ret = 4;
+                desc="The dtmf sequence is not valid, mismatch";
+                return;
+              }
+            }
+            splitDTMFSequence();
+
+            if(ret == 0){
+              for(var i=1; i<=dtmfSeqArr.length; i++){
+                flag="sequence_";
+                flag=flag+i;
+                context.parsedParams.setParam(flag,dtmfSeqArr[i-1]);
+              }
+              context.parsedParams.setParam('sequence_count',i-1);
+              context.result.setValue(true);
+            }
+            else{
+              //context.nTRC.setValue(309);
+              //context.strTRCDesc.setValue('dtmf sequence is invalid');
+              context.result.setValue(false);
+              context.connectRspParams.setParam('result',3);
+              context.connectRspParams.setParam('desc',desc);
+            }  
+</script>
+ </body>
+</html>
