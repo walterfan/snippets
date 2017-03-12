@@ -1,65 +1,99 @@
-body{
-  word-wrap: break-word;
+body {
+  padding-top: 90px;
 }
-.container {
-  margin-right: auto;
-  margin-left: auto;
+.panel-login {
+  border-color: #ccc;
+  -webkit-box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.2);
+  -moz-box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.2);
+  box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.2);
 }
-.api-test-panel {
-  border-top: none;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
-  padding:15px;
+.panel-login>.panel-heading {
+  color: #00415d;
+  background-color: #fff;
+  border-color: #fff;
+  text-align:center;
 }
-
-.phoneNumberPrefix{
-  float: left;
-  width:20%;
+.panel-login>.panel-heading a{
+  text-decoration: none;
+  color: #666;
+  font-weight: bold;
+  font-size: 15px;
+  -webkit-transition: all 0.1s linear;
+  -moz-transition: all 0.1s linear;
+  transition: all 0.1s linear;
 }
-.phoneNumber{
-  float: left;
-  width:80%;
+.panel-login>.panel-heading a.active{
+  color: #029f5b;
+  font-size: 18px;
 }
-.sipURI{
-  align:right;
-}
-.e2eCaseResult{
-  align:right;
-  font-weight: normal;
-  color: #999;
-}
-.message{
-  margin-bottom: 0px;
-}
-.cleanPaddingRight{
-  padding-right: 0px;
-}
-.cleanPaddingLeft{
-  padding-left: 0px;
-}
-.cleanMarginBottom{
-  margin-bottom: 0px;
-}
-textarea.editScriptHeight{
-  height:240px;
-}
-select[multiple].editScriptHeight{
-  height:240px;
-}
-.clip{
+.panel-login>.panel-heading hr{
   margin-top: 10px;
-  margin-left: -5px;
+  margin-bottom: 0px;
+  clear: both;
+  border: 0;
+  height: 1px;
+  background-image: -webkit-linear-gradient(left,rgba(0, 0, 0, 0),rgba(0, 0, 0, 0.15),rgba(0, 0, 0, 0));
+  background-image: -moz-linear-gradient(left,rgba(0,0,0,0),rgba(0,0,0,0.15),rgba(0,0,0,0));
+  background-image: -ms-linear-gradient(left,rgba(0,0,0,0),rgba(0,0,0,0.15),rgba(0,0,0,0));
+  background-image: -o-linear-gradient(left,rgba(0,0,0,0),rgba(0,0,0,0.15),rgba(0,0,0,0));
 }
-.logo{
-  margin-top:15px;
-  width:172px;
-  height:31px;
+.panel-login input[type="text"],.panel-login input[type="email"],.panel-login input[type="password"] {
+  height: 45px;
+  border: 1px solid #ddd;
+  font-size: 16px;
+  -webkit-transition: all 0.1s linear;
+  -moz-transition: all 0.1s linear;
+  transition: all 0.1s linear;
+}
+.panel-login input:hover,
+.panel-login input:focus {
+  outline:none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  border-color: #ccc;
+}
+.btn-login {
+  background-color: #59B2E0;
+  outline: none;
+  color: #fff;
+  font-size: 14px;
+  height: auto;
+  font-weight: normal;
+  padding: 14px 0;
+  text-transform: uppercase;
+  border-color: #59B2E6;
+}
+.btn-login:hover,
+.btn-login:focus {
+  color: #fff;
+  background-color: #53A3CD;
+  border-color: #53A3CD;
+}
+.forgot-password {
+  text-decoration: underline;
+  color: #888;
+}
+.forgot-password:hover,
+.forgot-password:focus {
+  text-decoration: underline;
+  color: #666;
 }
 
-textarea.showScriptHeight{
-  height:400px;
+.btn-register {
+  background-color: #1CB94E;
+  outline: none;
+  color: #fff;
+  font-size: 14px;
+  height: auto;
+  font-weight: normal;
+  padding: 14px 0;
+  text-transform: uppercase;
+  border-color: #1CB94A;
 }
-
-.ngdialog.ngdialog-theme-plain.custom-width .ngdialog-content {
-    width: 800px;
+.btn-register:hover,
+.btn-register:focus {
+  color: #fff;
+  background-color: #1CA347;
+  border-color: #1CA347;
 }

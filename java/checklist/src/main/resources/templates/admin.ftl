@@ -39,7 +39,7 @@
     </div> <!-- panel-body end -->
 
 <script>
-    $('li:eq(1)').addClass('active');
+    $('li:eq(2)').addClass('active');
 </script>
 </@layout.myLayout>
 

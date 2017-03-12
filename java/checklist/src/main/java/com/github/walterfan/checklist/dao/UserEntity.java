@@ -1,35 +1,49 @@
 package com.github.walterfan.checklist.dao;
 
+import com.github.walterfan.checklist.domain.UserStatus;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by walterfan on 7/2/2017.
  */
 @Entity
+@Table(name = "user")
 public class UserEntity extends BaseObject {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "user_id")
     private long id;
 
+    @Column(name = "user_name")
     private String username;
 
     private String password;
 
     private String email;
 
+    @Column(name = "phone_number")
     private String phoneNumber;
 
-    private boolean enabled;
+    @Column(name = "user_status")
+    private UserStatus status;
 
-    private String activationCode;
-
+    @Column(name = "create_time")
     private Date createTime;
 
+    @Column(name = "last_modified_time")
     private Date lastModifiedTime;
+
+    @OneToMany
+    private List<TokenEntity> tokens;
 
     public long getId() {
         return id;
@@ -71,20 +85,20 @@ public class UserEntity extends BaseObject {
         this.phoneNumber = phoneNumber;
     }
 
-    public boolean isEnabled() {
-        return enabled;
+    public UserStatus getStatus() {
+        return status;
     }
 
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
+    public void setStatus(UserStatus status) {
+        this.status = status;
     }
 
-    public String getActivationCode() {
-        return activationCode;
+    public List<TokenEntity> getTokens() {
+        return tokens;
     }
 
-    public void setActivationCode(String activationCode) {
-        this.activationCode = activationCode;
+    public void setTokens(List<TokenEntity> tokens) {
+        this.tokens = tokens;
     }
 
     public Date getCreateTime() {

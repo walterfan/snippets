@@ -16,14 +16,14 @@ public class ChecklistController {
         return new ModelAndView("index");
     }
 
-    @RequestMapping(value = "/signin", method = RequestMethod.GET)
-    public ModelAndView signinForm() {
-        return new ModelAndView("signin");
+    @RequestMapping(value = "/admin", method = RequestMethod.GET)
+    public ModelAndView adminForm() {
+        return new ModelAndView("admin");
     }
 
-    @RequestMapping(value = "/signup", method = RequestMethod.GET)
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
     public ModelAndView signupForm() {
-        return new ModelAndView("signup");
+        return new ModelAndView("login");
     }
 
     @RequestMapping(value = "/about", method = RequestMethod.GET)

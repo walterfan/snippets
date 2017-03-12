@@ -19,6 +19,7 @@
     <link href="./css/ie10-viewport-bug-workaround.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
+    <link href="./css/app.css" rel="stylesheet">
     <link href="./css/jumbotron-narrow.css" rel="stylesheet">
     <script src="./js/vendor/jquery-1.11.2.min.js"></script>
 
