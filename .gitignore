@@ -1,4 +1,6 @@
 target/
+.idea/
+*.iml
 *.o
 *.class
 .classpath

@@ -1,0 +1,35 @@
+management:
+  security:
+    enabled: false
+spring:
+    thymeleaf:
+      cache: false
+error:
+  whitelabel:
+    enabled: false
+server:
+      port: 8000
+
+loggin:
+  level:
+    root:INFO
+
+---
+spring:
+  profiles: development
+
+loggin:
+  level:
+    root:DEBUG
+
+
+---
+spring:
+  profiles: production
+
+loggin:
+  path: /tmp/
+  file: booklib.log
+  level:
+    root:INFO
+
