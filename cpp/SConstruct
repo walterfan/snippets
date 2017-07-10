@@ -1,14 +1,14 @@
 import os
 
-GMOCK_DIR="/workspace/cpp/gmock-1.7.0"
-GTEST_DIR=GMOCK_DIR + "/gtest"
+GMOCK_DIR="/workspace/cpp/googletest/googlemock"
+GTEST_DIR="/workspace/cpp/googletest/googletest"
 
 
 env = Environment()
 env.Append(LINKFLAGS='-lm')
 env.Append(CPPPATH=["/usr/local/include", GMOCK_DIR + "/include", GTEST_DIR + "/include", "./src", "./lib"] )
 env.Append(CCFLAGS = '-Wall -g -O1 -static -std=c++11 ')
-env.Append(LIBPATH=["/usr/local/lib"])
+env.Append(LIBPATH=["/usr/local/lib", "./lib/googlemock", "./lib/googlemock/gtest"])
 
 basic_test=env.Program(target='./bin/function_ptr_test', source=['./test/function_ptr_test.cpp'])
 
@@ -17,10 +17,11 @@ algotest=env.Program(target='./bin/HuffmanCodeTest', source=['./com/algorithms/H
 unittest=env.Program(target='./bin/unittest', source=['./test/unittest.cpp', 
 	'./test/functortest.cpp', 
 	'./test/stltest.cpp', 
-	'./test/smart_ptr_test.cpp',
-	GTEST_DIR + "/lib/.libs/libgtest.a", GMOCK_DIR + "/lib/.libs/libgmock.a"])
+	'./test/smart_ptr_test.cpp'],
+	LINKFLAGS='-lgtest -lgmock')
 
-text2image=env.Program(target='./bin/text2image', source=['./src/text2image.cpp'], LINKFLAGS='-lgd -lpng -lz -ljpeg -lfreetype -lm')
+text2image=env.Program(target='./bin/text2image', source=['./src/text2image.cpp'], 
+	LINKFLAGS='-lgd -lpng -lz -ljpeg -lfreetype -lm')
 
 #, LIBS = ['gmock', 'gtest'], LIBPATH = ['./bin', GMOCK_DIR + "/lib/.libs", GTEST_DIR + "/lib/.libs" ])
 #Default(basic_test)
