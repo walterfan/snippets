@@ -4,6 +4,8 @@ GMOCK_DIR="/workspace/cpp/googletest/googlemock"
 GTEST_DIR="/workspace/cpp/googletest/googletest"
 
 
+LIB_PATH = ['/usr/lib', '/usr/local/lib', '/usr/local/opt/openssl/lib', './lib', './bin']
+
 env = Environment()
 env.Append(LINKFLAGS='-lm')
 env.Append(CPPPATH=["/usr/local/include", GMOCK_DIR + "/include", GTEST_DIR + "/include", "./src", "./lib"] )
@@ -18,7 +20,7 @@ unittest=env.Program(target='./bin/unittest', source=['./test/unittest.cpp',
 	'./test/functortest.cpp', 
 	'./test/stltest.cpp', 
 	'./test/smart_ptr_test.cpp'],
-	LINKFLAGS='-lgtest -lgmock')
+	LIBS = ['gmock','gmock', 'pthread'], LIBPATH = LIB_PATH)
 
 text2image=env.Program(target='./bin/text2image', source=['./src/text2image.cpp'], 
 	LINKFLAGS='-lgd -lpng -lz -ljpeg -lfreetype -lm')
