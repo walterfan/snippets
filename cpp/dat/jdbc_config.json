@@ -1,0 +1,38 @@
+{
+    "JdbcConfigs":  
+    [
+        {
+            "name": "wfdb_oracle",
+            "type": "oracle",
+            "driverClass": "oracle.jdbc.driver.OracleDriver",
+            "url": "jdbc:oracle:thin:@waltersite:1521:wfdb",
+            "userName": "walter",
+            "password": "pass"
+        },
+        {
+            "name": "wfdb_mysql",
+            "type": "mysql",
+            "driverClass": "com.mysql.jdbc.Driver",
+            "url": "jdbc:mysql://waltersite/wfdb?useUnicode=true&characterEncoding=utf8",
+            "userName": "walter",
+            "password": "pass"
+        },
+        {
+            "name": "wfdb_sqlserver",
+            "type": "mssql",
+            "driverClass": "com.microsoft.sqlserver.jdbc.SQLServerDriver",
+            "url": "jdbc:sqlserver://waltersitet:1433",
+            "userName": "walter",
+            "password": "pass"
+        },
+        {
+            "name": "wfdb_sqlite",
+            "type": "sqlite",
+            "driverClass": "org.sqlite.JDBC",
+            "url": "jdbc:sqlite:d:/walter/data/wfdb.s3db",
+            "userName": "walter",
+            "password": "pass"
+        }
+    ]
+    
+}

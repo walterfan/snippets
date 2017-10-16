@@ -31,6 +31,23 @@ void bubble(int a[], int N)
     }
 }
 
+TEST(BasicTest, selfincrease1)
+{
+
+    int i = 0;
+    cout<< i++ <<endl;
+    cout<< i++ <<endl;
+    cout<< i++ <<endl;
+}
+TEST(BasicTest, selfincrease2)
+{
+
+    int i = 0;
+    cout<< ++i <<endl;
+    cout<< ++i <<endl;
+    cout<< ++i <<endl;
+}
+
 TEST(BasicTest, pointer)
 {
     cout<<"--- BasicTest.pointer --"<<endl;

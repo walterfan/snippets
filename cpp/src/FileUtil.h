@@ -1,3 +1,6 @@
+#ifndef __FILE_UTIL_H__
+#define __FILE_UTIL_H__
+
 #include <string>
 #include <vector>
 
@@ -22,3 +25,5 @@ inline int File2String(string strFilename, string& str)
 }
 
 }
+
+#endif

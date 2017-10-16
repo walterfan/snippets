@@ -8,24 +8,38 @@ LIB_PATH = ['/usr/lib', '/usr/local/lib', '/usr/local/opt/openssl/lib', './lib',
 
 env = Environment()
 env.Append(LINKFLAGS='-lm')
-env.Append(CPPPATH=["/usr/local/include", GMOCK_DIR + "/include", GTEST_DIR + "/include", "./src", "./lib"] )
+env.Append(CPPPATH=["/usr/local/include", GMOCK_DIR + "/include", 
+    GTEST_DIR + "/include", "./inc", "./src", "./lib", "./com/algorithms"] )
 env.Append(CCFLAGS = '-Wall -g -O1 -static -std=c++11 ')
 env.Append(LIBPATH=["/usr/local/lib", "./lib/googlemock", "./lib/googlemock/gtest"])
 
-basic_test=env.Program(target='./bin/function_ptr_test', source=['./test/function_ptr_test.cpp'])
+basictest=env.Program(target='./bin/function_ptr_test', source=['./test/function_ptr_test.cpp'])
 
-algotest=env.Program(target='./bin/HuffmanCodeTest', source=['./com/algorithms/HuffmanCode.cpp'])
+#algotest=env.Program(target='./bin/HuffmanCodeTest', source=['./com/algorithms/HuffmanCode.cpp'], CCFLAGS = '-Wall -g -O1 -static -std=c++11 -D_TEST_HUFFMAN_CODE_=1')
 
 unittest=env.Program(target='./bin/unittest', source=['./test/unittest.cpp', 
-	'./test/functortest.cpp', 
+	'./test/basictest.cpp', 
+    './test/functortest.cpp', 
 	'./test/stltest.cpp', 
+    './test/StringUtilTest.cpp', 
+    './test/jsoncpp_test.cpp', 
+    './test/RegexTest.cpp', 
+    './src/TestCase.cpp',
+    './src/StringUtil.cpp',
+    './test/TestSuiteLoaderTest.cpp',
+    './test/HuffmanCodeTest.cpp',
 	'./test/smart_ptr_test.cpp'],
-	LIBS = ['gmock','gmock', 'pthread'], LIBPATH = LIB_PATH)
+	LIBS = ['gmock','gtest', 'jsoncpp', 'pthread'], LIBPATH = LIB_PATH)
 
 text2image=env.Program(target='./bin/text2image', source=['./src/text2image.cpp'], 
 	LINKFLAGS='-lgd -lpng -lz -ljpeg -lfreetype -lm')
 
+waltertest=env.Program(target='./bin/waltertest', source=['./test/waltertest.cpp', 
+        './src/showbytes.cpp', './src/FileUtil.cpp',
+        './src/StringUtil.cpp',
+        './src/NetworkUtil.cpp'], 
+    LINKFLAGS='-lm')
 #, LIBS = ['gmock', 'gtest'], LIBPATH = ['./bin', GMOCK_DIR + "/lib/.libs", GTEST_DIR + "/lib/.libs" ])
 #Default(basic_test)
-Default(unittest)
+Default(waltertest, basictest, unittest)
 

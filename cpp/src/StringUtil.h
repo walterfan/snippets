@@ -14,8 +14,10 @@
 #define __STRING_UTIL_H__
 
 #include <stdarg.h>
-#include "wf_base.h"
-#include "wf_util.h"
+#include <string.h>
+#include <sys/time.h>
+#include <string>
+using namespace std;
 
 namespace wfan {
 
@@ -49,6 +51,10 @@ string GetDateStr();
 *Return:       string filename without suffix
      *************************************/
 string TrimSuffix(const string& filename);
+
+int get_value_by_key(const std::string& strMsml, string &strValue, const char* key, const char* sep);
+
+int replace_value_by_key(std::string& strMsml, string mask, const char* key="conn:", const char* sep="/\"");
 
 
 }//namespace wfan

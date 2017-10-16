@@ -8,9 +8,8 @@ using namespace testing;
 using ::testing::AtLeast;                     // #1
 
 int main(int argc, char** argv) {
-  // The following line must be executed to initialize Google Mock
-  // (and Google Test) before running the tests.
-  printf("--- unit test ---\n");
-  InitGoogleMock(&argc, argv);
-  return RUN_ALL_TESTS();
+    printf("--- unit test ---\n");
+    testing::GTEST_FLAG(output)="xml:unit_test_result.xml";
+    InitGoogleMock(&argc, argv);
+    return RUN_ALL_TESTS();
 }

@@ -1,0 +1,20 @@
+{
+  "meetingAccessNumbers": {
+    "bak1AccessNumbers": "",
+    "bak2AccessNumbers": "",
+    "priAccessNumbers": ""
+  },
+  "meetingInfo": {
+    "audioPassword": "",
+    "bridgeUri": "sip:347643@TargetMeetingPlatform",
+    "enforceAudioLogin": false,
+    "enforceAudioPassword": false,
+    "exceptionMeetingKey": "",
+    "extendsParams": "AudioPin=;HostName=;HostPin=;MeetingType=;PMREnableSuspend=false;SupportCET=0;hasControlAgent=true;hasMeetingHost=true",
+    "siteId": ""
+  },
+  "meetingPlatform": "CMR4",
+  "meetingStarted": true,
+  "scheduledType": "PMR",
+  "supportSparkPSTN": false
+}

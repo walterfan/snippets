@@ -4,7 +4,7 @@
 #include "NetworkUtil.h"
 #include "FileUtil.h"
 #include "StringUtil.h"
-#include "algorithms/wf_sort.h"
+#include "wf_sort.h"
 
 using namespace std;
 using namespace wfan;
@@ -84,11 +84,16 @@ int main(int argc, char *argv[])
 
         msg_trace("--- new test ---");
 
-        string xmlPath = "/opt/webex/ivr/scripts/customized/quintiles/quintiles.xml";
-        string prefix = "/opt/webex/ivr/scripts/";
+        map<string, string> aMap;
+        aMap["name"]= "walter";
+        std::cout<<"aMap: "<< aMap.size()<<endl;
 
-        string xmlFile = xmlPath.substr(prefix.length());
-        msg_trace("xmlFile: "<<xmlFile);
+        map<string, string> bMap;
+        std::cout<<"bMap: "<< bMap.size()<<endl;
+
+        aMap.swap(bMap);
+        std::cout<<"aMap: "<< aMap.size()<<endl;
+        std::cout<<"bMap: "<< bMap.size()<<endl;
         
     }
 

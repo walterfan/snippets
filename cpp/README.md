@@ -14,6 +14,17 @@ Prerequisite
 1) download google protobuf from http://code.google.com/p/protobuf
 2) ./autogen.sh, ./configure, make, make install
 
+* Install jsoncpp
+
+```
+git clone https://github.com/open-source-parsers/jsoncpp.git
+cd jsoncpp
+mkdir bld
+cd bld
+cmake ..
+make
+make install
+```
 
 * set LD_LIBRARY_PATH
 export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH

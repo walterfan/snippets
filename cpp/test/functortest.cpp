@@ -8,6 +8,53 @@ using namespace testing;
 using ::testing::Return;
 using ::testing::Mock;
 
+typedef enum {
+    STR = 0,
+    SIP,
+    SOAP,
+    PDU,
+    DSA,
+    HTTP
+} test_message_type;
+
+typedef enum {
+    test_err_status_ok = 0,
+    test_err_status_error = 1,
+    test_err_status_ignore = 2,
+    test_err_status_retry = 3
+
+} test_status_t;
+
+typedef test_status_t (*message_handler)(test_message_type msg_type, void * test_msg);
+
+struct MessageHandler {
+    MessageHandler() {
+
+    }
+    MessageHandler(test_message_type msgType, message_handler pHandler) {
+        msg_type = msgType;
+        msg_handler = pHandler;
+
+    }
+
+    void handle(void* pMsg) {
+        msg_result =  (*msg_handler)(msg_type, pMsg);
+    }
+    test_message_type msg_type;
+    test_status_t msg_result;
+    message_handler msg_handler;
+};
+
+test_status_t str_message_handler(test_message_type msg_type, void* test_msg) {
+    if(msg_type != STR) {
+        return test_err_status_ignore;
+    }
+    string* pMsg = static_cast<string*>(test_msg);
+    cout << *pMsg << endl;
+
+    return test_err_status_ok;
+}
+
 struct st_node
 {
 	struct st_node * pNext;
@@ -57,4 +104,20 @@ TEST(functorTest, testcase1)
 
     }
     foreach(pList,f);
+}
+
+TEST(functorTest, testcase2)
+{
+    cout<<"--- functorTest.testcase2 --"<<endl;
+    
+    MessageHandler*  pHandler = new MessageHandler(STR, &str_message_handler);
+
+    string test_msg = "hello baby, come on";
+
+    pHandler->handle(&test_msg);
+    
+    EXPECT_EQ(pHandler->msg_result, test_err_status_ok);
+
+    delete pHandler;
+
 }

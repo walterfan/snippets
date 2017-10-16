@@ -169,8 +169,8 @@ int CNetworkUtil::Listen(int port)
     serveraddr.sin_family = AF_INET;
     serveraddr.sin_addr.s_addr = htonl(INADDR_ANY);
     serveraddr.sin_port = htons((unsigned short)port);
-    if (bind(listenfd, (SA *)&serveraddr, sizeof(serveraddr)) < 0)
-    return -1;
+    if (::bind(listenfd, (SA *)&serveraddr, sizeof(serveraddr)) < 0)
+        return -1;
 
     /* Make it a listening socket ready to accept connection requests */
     if (listen(listenfd, LISTENQ) < 0)
@@ -201,7 +201,7 @@ SOCKET CNetworkUtil::UdpServer(const char *hname, const char *sname )
 	s = socket( AF_INET, SOCK_DGRAM, 0 );
 	if ( !isvalidsock( s ) )
 		error( 1, errno, "socket call failed" );
-	if ( bind( s, ( struct sockaddr * ) &local,
+	if ( ::bind( s, ( struct sockaddr * ) &local,
 		 sizeof( local ) ) )
 		error( 1, errno, "bind failed" );
 	return s;
@@ -223,7 +223,7 @@ SOCKET CNetworkUtil::TcpServer(const char *hname,const char *sname )
 		( char * )&on, sizeof( on ) ) )
 		error( 1, errno, "setsockopt failed" );
 
-	if ( bind( s, ( struct sockaddr * ) &local,
+	if ( ::bind( s, ( struct sockaddr * ) &local,
 		 sizeof( local ) ) )
 		error( 1, errno, "bind failed" );
 

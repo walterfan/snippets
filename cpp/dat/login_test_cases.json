@@ -1,0 +1,33 @@
+{
+  "testsuites": [
+    {
+      "name": "login_module_test",
+      "testcases": [
+        {
+          "name": "login_by_phone_step1",
+          "feature": "login",
+          "scenario": "login by mobile phone",
+          "given": "input mobile phone number",
+          "when": "submit",
+          "then": "send a sms for authenticate code"
+        },
+        {
+          "name": "login_by_phone_step2",
+          "feature": "login",
+          "scenario": "login by mobile phone",
+          "given": "input mobile phone number and authenticate code",
+          "when": "submit",
+          "then": "redirect the user's home paeg"
+        },
+        {
+          "name": "login_by_error_password",
+          "feature": "login",
+          "scenario": "login by username and password",
+          "given": "input username, password, and captcha",
+          "when": "submit",
+          "then": "dispatch login failure message: you inputed improper username or password"
+        }
+      ]
+    }
+  ]
+}

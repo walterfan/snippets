@@ -1,5 +1,7 @@
 #include "StringUtil.h"
 
+#include "wf_util.h"
+
 char* get_cur_info(char* szBuf, int len)
 {
     struct timeval  tv;
@@ -145,6 +147,40 @@ bool endswith(const std::string &str, const std::string &suffix)
   }
 
   return str.compare(totalSize - suffixSize, suffixSize, suffix) == 0;
+}
+
+
+int get_value_by_key(const std::string& strMsml, string &strValue, const char* key, const char* sep) {
+  std::string::size_type nBegin = strMsml.find(key);
+  int nKeyLen = strlen(key);
+  if(string::npos == nBegin) return -1;
+
+  std::string::size_type nEnd = strMsml.find_first_of(sep, nBegin + nKeyLen);
+
+  if(std::string::npos == nEnd) {
+    return -1;
+  }
+  
+  fprintf(stdout, "nEnd=%d , nBegin=%d , nKeyLen=%d",nEnd , nBegin , nKeyLen);
+  strValue = strMsml.substr(nBegin + nKeyLen, nEnd - nBegin - nKeyLen);
+
+  return 0;
+}
+
+int replace_value_by_key(std::string& strMsml, string mask, const char* key, const char* sep) {
+
+  std::string::size_type nBegin = strMsml.find(key);
+  if(string::npos == nBegin) return -1;
+
+  std::string::size_type nEnd = strMsml.find_first_of(sep, nBegin);
+  printf("%d to %d", nBegin, nEnd);
+  if(std::string::npos == nEnd) {
+        strMsml  = strMsml.substr(0, nBegin) + key + mask;
+  } else {
+        strMsml = strMsml.substr(0, nBegin) + key + mask + strMsml.substr(nEnd);
+  }
+  
+  return 0;
 }
 
 } /* namespace wfan */

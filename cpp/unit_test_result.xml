@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites tests="22" failures="0" disabled="0" errors="0" timestamp="2017-09-19T20:54:52" time="0.033" name="AllTests">
+  <testsuite name="BasicTest" tests="3" failures="0" disabled="0" errors="0" time="0">
+    <testcase name="selfincrease1" status="run" time="0" classname="BasicTest" />
+    <testcase name="selfincrease2" status="run" time="0" classname="BasicTest" />
+    <testcase name="pointer" status="run" time="0" classname="BasicTest" />
+  </testsuite>
+  <testsuite name="functorTest" tests="2" failures="0" disabled="0" errors="0" time="0">
+    <testcase name="testcase1" status="run" time="0" classname="functorTest" />
+    <testcase name="testcase2" status="run" time="0" classname="functorTest" />
+  </testsuite>
+  <testsuite name="StlTest" tests="3" failures="0" disabled="0" errors="0" time="0.031">
+    <testcase name="StringTest" status="run" time="0" classname="StlTest" />
+    <testcase name="IostreamTest" status="run" time="0.031" classname="StlTest" />
+    <testcase name="DequeTest" status="run" time="0" classname="StlTest" />
+  </testsuite>
+  <testsuite name="StringUtilTest" tests="3" failures="0" disabled="0" errors="0" time="0">
+    <testcase name="strok_r" status="run" time="0" classname="StringUtilTest" />
+    <testcase name="get_value_by_key" status="run" time="0" classname="StringUtilTest" />
+    <testcase name="replace_value_by_key" status="run" time="0" classname="StringUtilTest" />
+  </testsuite>
+  <testsuite name="JsonCppTest" tests="2" failures="0" disabled="0" errors="0" time="0.001">
+    <testcase name="VectorToJson" status="run" time="0" classname="JsonCppTest" />
+    <testcase name="JsonFileRead" status="run" time="0.001" classname="JsonCppTest" />
+  </testsuite>
+  <testsuite name="RegexTest" tests="2" failures="0" disabled="0" errors="0" time="0">
+    <testcase name="TEST_STR1" status="run" time="0" classname="RegexTest" />
+    <testcase name="TEST_STR2" status="run" time="0" classname="RegexTest" />
+  </testsuite>
+  <testsuite name="TestSuitLoaderTest" tests="1" failures="0" disabled="0" errors="0" time="0">
+    <testcase name="LoadTest" status="run" time="0" classname="TestSuitLoaderTest" />
+  </testsuite>
+  <testsuite name="TestSuitLoaderImplTest" tests="1" failures="0" disabled="0" errors="0" time="0">
+    <testcase name="ParseTest" status="run" time="0" classname="TestSuitLoaderImplTest" />
+  </testsuite>
+  <testsuite name="HuffmanCodesTest" tests="1" failures="0" disabled="0" errors="0" time="0.001">
+    <testcase name="buildTest" status="run" time="0.001" classname="HuffmanCodesTest" />
+  </testsuite>
+  <testsuite name="SmartPtrTest" tests="4" failures="0" disabled="0" errors="0" time="0">
+    <testcase name="AutoPtrTest" status="run" time="0" classname="SmartPtrTest" feature="Smart Pointer" scenario="SmartPtrTest.AutoPtrTest" given="create a pointer to auto_ptr" when="out of the scope" then="the pointer will be released" checkpoints="" />
+    <testcase name="UniquePtrTest" status="run" time="0" classname="SmartPtrTest" feature="Smart Pointer" scenario="SmartPtrTest.UniquePtrTest" given="create a pointer to unique_ptr" when="out of the scope" then="the pointer will be released" checkpoints="" />
+    <testcase name="SharedPtrTest" status="run" time="0" classname="SmartPtrTest" feature="Smart Pointer" scenario="SmartPtrTest.SharedPtrTest" given="create a pointer to shared_ptr" when="out of the scope" then="the pointer will be released" checkpoints="" />
+    <testcase name="WeakPtrTest" status="run" time="0" classname="SmartPtrTest" feature="Smart Pointer" scenario="SmartPtrTest.WeakPtrTest" given="create a pointer to unique_ptr" when="out of the scope" then="the pointer will be released" checkpoints="" />
+  </testsuite>
+</testsuites>
