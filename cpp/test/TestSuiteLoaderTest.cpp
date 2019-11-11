@@ -6,13 +6,13 @@
 
 using namespace std;
 using namespace testing;
-using namespace wfan;
+
 
 class TestSuitLoaderTest : public ::testing::Test {
 protected:
   virtual void SetUp() {
     cout<< "-- TestSuitLoaderTest SetUp --" << endl;
-    m_pLoader = new TestSuitLoader("./dat/login_test_cases.json");
+    m_pLoader = new wfan::TestSuitLoader("./dat/login_test_cases.json");
 
   }
 
@@ -24,7 +24,7 @@ protected:
     }
   }
 
-  TestSuitLoader* m_pLoader;
+  wfan::TestSuitLoader* m_pLoader;
 };
 
 class TestSuitLoaderImplTest : public TestSuitLoaderTest {
@@ -47,12 +47,12 @@ TEST_F(TestSuitLoaderTest, LoadTest) {
 
   
 
-  map<string, TestSuite> testSuites = m_pLoader->GetTestsuites();
-  std::map<std::string, TestSuite>::const_iterator it = testSuites.begin();
+  map<string, wfan::TestSuite> testSuites = m_pLoader->GetTestsuites();
+  std::map<std::string, wfan::TestSuite>::const_iterator it = testSuites.begin();
 
     for(; it != testSuites.end(); ++it )
     {
-     TestSuite suite = it->second;
+     wfan::TestSuite suite = it->second;
      suite.Serialize(cout);
     }
   
