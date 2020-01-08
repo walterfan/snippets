@@ -15,6 +15,6 @@
 	  "dependencies": {
 	    "express": "3.x",
 		"socket.io": "~0.9.6",
-		"mime": "~1.2.7"
+		"mime": "~2.4.4"
 	}
 }
