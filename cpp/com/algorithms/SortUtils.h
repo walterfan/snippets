@@ -17,7 +17,7 @@ public:
 	static void shell_sort(T* pData, uint32_t len);
 	static void quick_sort(T* pData, uint32_t len);
 	static void heap_sort(T* pData, uint32_t len);
-	static void merge_sort(T* pData, uint32_t len);
+	static void merge_sort(vector<T>& vec);
 };
 
 template <typename T>
@@ -25,11 +25,11 @@ void SortUtils<T>::insert_sort(vector<T>& vec){
 	int j = 0;
 	int len = vec.size();
 	for(int i = 1; i < len; ++i) {
-		T tmp = vec[i];
-		for(j = i; j >0 && tmp < a[j-1]; --j) {
+		T selected = vec[i];
+		for(j = i; j >0 && selected < a[j-1]; --j) {
 			vec[j] = vec[j-1];
 		}
-		vec[j] = tmp;
+		vec[j] = selected;
 	}
 }
 
@@ -66,9 +66,36 @@ void SortUtils<T>::insert_sort(T* pData, uint32_t len)
 }
 
 template <typename T>
-void SortUtils<T>::merge_sort(T* pData, uint32_t len)
+void merge_sort(vect<T>& vec, vector<T>& tempVec, int leftPos, int rightPos, int rightEnd) {
+	int leftEnd = rightPos - 1;
+	int tempPos = rightPos;
+	int count = rightEnd - leftPos + 1
+
+	while( leftPos <= leftEnd && rightPos <= rightEnd) {
+		if(vec[leftPos] <= vec[rightPos]) {
+			tempVec[tempPos++] = vec[leftPos++];
+		} else {
+			tempVec[tempPos++] = vec[rightPos++];
+		}
+	}
+}
+
+
+template <typename T>
+void merge_sort(vect<T>& vec, vector<T>& tempVec, int left, int right) {
+	if(left < right) {
+		int center = (left + right)/2;
+		merge_sort(a, tempVec, left, center);
+		merge_sort(a, tempVec, center + 1, right);
+		merge(vec, tempVec, left, center+1, right);
+	}
+}
+
+template <typename T>
+void SortUtils<T>::merge_sort(vector<T>& vec)
 {
-    if(len < 2) return;
+	vector<T> tempVec(vec.size());
+	merge_sort(vec, tempVec, 0, vec.size()-1)
 
 	printf("TODO\n");
 
@@ -83,13 +110,13 @@ void shell_sort(vector<Comparable>& vec)
     for(int gap = vec_size/2; gap > 0; gap = gap/2)
     {
    	    for(int i = gap; i < vec_size; i++) {
-            Comparable tmp = vec[i];
+            Comparable selected = vec[i];
             int j = i;
 
-            for(; j>=gap && tmp < vec[j-gap]; j-=gap) {
+            for(; j>=gap && selected < vec[j-gap]; j-=gap) {
             		vec[j] = vec[j-gap]
             }
-            vec[j] = tmp
+            vec[j] = selected
         }
     }
 
