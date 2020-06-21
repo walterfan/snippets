@@ -1,6 +1,7 @@
 #include "gmock/gmock.h"
 #include <string>
 #include <iostream>
+#include <memory>
 
 using namespace std;
 using namespace testing;
@@ -78,6 +79,28 @@ void f(int n)
 	printf("node(?)=%d\n", n);
 }
 
+class Rectangle {
+public:
+    Rectangle(std::string name):m_name(name) {}
+    virtual int draw(int x1, int y1, int x2, int y2) {
+        printf("--> draw rectangle (%d, %d) to (%d, %d)", x1, y1, x2, y2);
+        return (x2 - x1) * (y2 - y1);
+
+    }  
+    std::string m_name; 
+};
+
+class Square: public Rectangle {
+public:
+    Square(std::string name):Rectangle(name) {}
+     virtual int draw(int x1, int y1, int x2, int y2) {
+        printf("--> draw square (%d, %d) to (%d, %d)\n", x1, y1, x2, y2);
+        return (x2 - x1) * (y2 - y1);
+    } 
+};
+
+typedef int (Square::*DRAW_FN_PTR)(int x1, int y1, int x2, int y2);
+
 TEST(functorTest, testcase1)
 {
     cout<<"--- functorTest.testcase1 --"<<endl;
@@ -119,5 +142,26 @@ TEST(functorTest, testcase2)
     EXPECT_EQ(pHandler->msg_result, test_err_status_ok);
 
     delete pHandler;
+
+}
+
+TEST(functorTest, testcase3)
+{
+    cout<<"--- functorTest.testcase3 --"<<endl;
+    shared_ptr<Rectangle> p1 = std::make_shared<Rectangle>("box");
+    std::cout << "Created a shared Rectangle\n"
+              << "  p1.get() = " << p1.get()
+              << ", p1.use_count() = " << p1.use_count() << '\n';
+    p1->draw(10, 10, 50, 50);
+
+    shared_ptr<Square> p2 = std::make_shared<Square>("box");
+    std::cout << "Created a shared Square\n"
+              << "  p2.get() = " << p2.get()
+              << ", p2.use_count() = " << p2.use_count() << '\n';
+    p2->draw(10, 10, 50, 50);
+
+    DRAW_FN_PTR fnPtr = &Square::draw; 
+    Square* thePtr = p2.get();
+    (thePtr->*fnPtr)(20, 20, 40, 40);
 
 }

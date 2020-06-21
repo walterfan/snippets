@@ -1,3 +1,4 @@
+*.dblite
 target/
 .idea/
 .mvn/

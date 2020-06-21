@@ -15,6 +15,9 @@ env.Append(LIBPATH=["/usr/local/lib", "./lib/googlemock", "./lib/googlemock/gtes
 
 basictest=env.Program(target='./bin/function_ptr_test', source=['./test/function_ptr_test.cpp'])
 
+tinydiagram=env.Program(target='./bin/tiny_diagram', source=['./exam/tiny_diagram.cpp'])
+
+
 #algotest=env.Program(target='./bin/HuffmanCodeTest', source=['./com/algorithms/HuffmanCode.cpp'], CCFLAGS = '-Wall -g -O1 -static -std=c++11 -D_TEST_HUFFMAN_CODE_=1')
 
 unittest=env.Program(target='./bin/unittest', source=['./test/unittest.cpp', 
