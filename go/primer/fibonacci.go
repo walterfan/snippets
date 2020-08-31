@@ -23,7 +23,7 @@ func fib1(n int) int {
 	return fib1(n-1) + fib1(n-2)
 }
 
-func main() {
+func fibonacci() {
 	log.Printf("--- fabonacci sequence --")
 	var sum = fib1(10)
 	log.Printf("# fabonacci sum: %d", sum)
