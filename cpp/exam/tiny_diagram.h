@@ -1,3 +1,6 @@
+#ifndef UTIL_TINYDIAGRAM_H_
+#define UTIL_TINYDIAGRAM_H_
+
 #include <iostream>
 #include <vector>
 #include <string>
@@ -585,4 +588,4 @@ public:
 };
 
 
-#endif /* UTIL_TINYCHART_H_ */
+#endif /* UTIL_TINYDIAGRAM_H_ */
