@@ -2,6 +2,9 @@ some test programs on cygwin or ubuntu
 
 Prerequisite
 ------------------
+* Install Boost
+refer to https://www.boost.org
+
 
 * Build googletest
 
@@ -29,14 +32,24 @@ make install
 * set LD_LIBRARY_PATH
 export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
 
+# Build tool
+
+Scons, refer to https://scons.org/
+
+the Build script is SConstruct
+
+Just run `scons`
+
+# Example
+## cpp example
+./bin/run_example
+
 ## text2image
 scons -Q ./bin/text2image
 
 ## unittst
-scons
+./bin/unittest
 
-Reference
--------------------
-## Protobuf
-* https://developers.google.com/protocol-buffers/docs/cpptutorial
-* http://www.cnblogs.com/Solstice/archive/2011/04/03/2004458.html
+# Reference
+* Boost: https://www.boost.org/doc/libs/1_74_0/
+* Protobuf: https://developers.google.com/protocol-buffers/docs/cpptutorial
