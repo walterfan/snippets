@@ -1,3 +1,16 @@
+CC=gcc
+CFLAGS= -Wall -g -O -fPIC
+RM= rm -f
+ 
+.PHONY: all clean
+
+all: libtiny_util.so rot13_select
+
+libtiny_util.so: tiny_util.o
+	$(LINK.c) -shared $^ -o $@
+
+tiny_util.o: tiny_util.c tiny_util.h
+
 swap:
 	gcc -g -o swap swap.c
 	gcc -S swap.c
@@ -12,4 +25,4 @@ rot13_event:
 rot13_event2:
 	gcc	 -g -o rot13_server_event2 rot13_server_event2.c  -levent	
 clean:
-	rm -f swap swap.s http_client rot13_server rot13_server_select rot13_server_event rot13_server_event2
+	$(RM) *.o *.so swap swap.s http_client rot13_server rot13_server_select rot13_server_event rot13_server_event2

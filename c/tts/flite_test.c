@@ -1,6 +1,6 @@
-#include "flite.h"
+#include "flite/flite.h"
 
-register_cmu_us_kal();
+extern cst_voice* register_cmu_us_kal();
 
 int main(int argc, char **argv)
 {
