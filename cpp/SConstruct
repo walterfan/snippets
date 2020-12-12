@@ -32,7 +32,16 @@ unittest=env.Program(target='./bin/unittest', source=['./test/unittest.cpp',
     './test/TestSuiteLoaderTest.cpp',
     './test/HuffmanCodeTest.cpp',
 	'./test/smart_ptr_test.cpp'],
-	LIBS = ['gmock','gtest', 'jsoncpp', 'pthread'], LIBPATH = LIB_PATH)
+	CCFLAGS='-fno-elide-constructors -Wall -g -O1 -static -std=c++11 -DBOOST_LOG_DYN_LINK',
+    LIBS = ['gmock','gtest', 'jsoncpp', 'pthread'], LIBPATH = LIB_PATH)
+
+boosttest=env.Program(target='./bin/boosttest', 
+    source=['./test/unittest.cpp', './test/boosttest.cpp'],
+	CCFLAGS='-fno-elide-constructors -Wall -g -O1 -static -std=c++11 -DBOOST_LOG_DYN_LINK',
+	LINKFLAGS='-lboost_log -lboost_thread',
+    LIBS = ['gmock','gtest', 'jsoncpp', 'pthread'], 
+    LIBPATH = LIB_PATH
+    )
 
 text2image=env.Program(target='./bin/text2image', source=['./src/text2image.cpp'], 
 	LINKFLAGS='-lgd -lpng -lz -ljpeg -lfreetype -lm')
@@ -46,6 +55,7 @@ waltertest=env.Program(target='./bin/waltertest', source=['./test/waltertest.cpp
         './src/showbytes.cpp', './src/FileUtil.cpp',
         './src/StringUtil.cpp',
         './src/NetworkUtil.cpp'], 
+    CCFLAGS='-fno-elide-constructors -Wall -g -O1 -static -std=c++11 -DBOOST_LOG_DYN_LINK',    
     LINKFLAGS='-lm')
 
 #, LIBS = ['gmock', 'gtest'], LIBPATH = ['./bin', GMOCK_DIR + "/lib/.libs", GTEST_DIR + "/lib/.libs" ])
@@ -53,5 +63,6 @@ waltertest=env.Program(target='./bin/waltertest', source=['./test/waltertest.cpp
 Default(waltertest, 
     basictest, 
     unittest,
+    boosttest,
     run_example)
 

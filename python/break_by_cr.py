@@ -13,11 +13,10 @@ def break_by_cr(text, prefix):
 
 
 if __name__ == '__main__':
-    if len(sys.argv) < 2:
-        print('usage: python break_by_cr <prefix> - add prefix to the text in clipboard')
-        sys.exit(1)
-
-    prefix = sys.argv[1]
+    prefix = ""
+    if len(sys.argv) > 1:
+        prefix = sys.argv[1]
+    
     text = pyperclip.paste()
     print("copied text to clipboard:\n{}\n{}\n".format('-'*20,text))
     text = break_by_cr(text, prefix)

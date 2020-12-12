@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>JavaScript Examples</title>
+    <meta charset="utf-8">
+  </head>
+  <body>
+    <button id="test">Test</button>
+    <div id="mylog"></div>
+    <script type="text/javascript" src="util.js"></script>
+    <script type="text/javascript" src="exam.js"></script>
+    <script>
+
+    var author = "walter";
+    let name = 'walter';
+
+
+(function () {
+    init_log("#mylog")
+
+    console.log(author);    
+
+    console.log("this.author: ", this.author);
+    console.log("window.author: ", window.author);
+
+
+    console.log("this.name: ", this.name);
+    console.log("window.author: ", window.name);
+
+
+    var article = new Article("blog", "test");
+
+    var articles = [];
+
+    console.log(article.toString());    
+
+    addArticle(article);
+
+    console.log("articles: ", articles);
+
+    function addArticle(article) {
+        
+        if(article) {
+            article.author = article.author || getDefaultAuthor();
+            articles.push(article);
+        }
+
+        function getDefaultAuthor() {
+            return "walter";
+        }
+    }
+
+    function Article(title, content, author) {
+        this.title = title;
+        this.content = content;
+        this.author = author;
+        this.salary= 1000;
+        
+        this.toString = function() {
+            return "article : title=" + this.title + ", content=" + this.content + 
+               ", author=" +  this.author +", salary " +  ", " +  this.salary;
+        }
+    }
+
+
+    console.log(typeof undefined);
+    console.log(typeof null);
+    console.log(typeof {});
+    console.log(typeof []);    
+    console.log(typeof true);
+    console.log(typeof 1);
+    console.log(typeof "");
+    console.log(typeof function(){});
+    console.log(typeof Symbol());
+
+
+function user() {
+    var age = 0;
+    
+    this.getAge = function() {
+        return age; 
+    }
+
+    this.setAge = function(theAge) {
+        age = theAge
+    }
+
+} 
+
+var aUser = new user();
+console.log(aUser.getAge());
+aUser.setAge(30);
+console.log(aUser.getAge());
+
+ 
+})();
+
+        
+        
+
+    </script>
+  </body>
+</html>

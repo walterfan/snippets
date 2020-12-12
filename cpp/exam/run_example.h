@@ -39,7 +39,7 @@ public:
     Command(Command&& other);
     Command& operator=(Command&& other);
 
-    virutal ~Command();
+    virtual ~Command();
 
     void setName(const std::string& name);
     void setParameter(const std::string& name, const std::string& value);

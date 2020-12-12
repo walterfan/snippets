@@ -16,9 +16,12 @@ static long snTestNum = 0;
 struct Foo
 {
     uint32_t fingerprint;
-    Foo(uint32_t seqNum): fingerprint(FINGERPRINT),sn(seqNum)      { std::cout << "Foo::Foo " << sn <<endl;  }
-    ~Foo()     { std::cout << "Foo::~Foo " << sn << endl; fingerprint = 0;}
-    uint32_t GetSN() { std::cout << "Foo::GetSN " << sn << endl; return sn; }
+    Foo(uint32_t seqNum): fingerprint(FINGERPRINT),sn(seqNum)      
+    { std::cout << "Foo::Foo " << sn <<endl;  }
+    ~Foo()     
+    { std::cout << "Foo::~Foo " << sn << endl; fingerprint = 0;}
+    uint32_t GetSN() 
+    { std::cout << "Foo::GetSN " << sn << endl; return sn; }
     uint32_t sn;
 };
 
