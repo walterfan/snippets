@@ -8,6 +8,7 @@ node_modules/
 *.class
 .classpath
 .settings/
+node_modules/
 bin/
 pom.xml.tag
 pom.xml.releaseBackup
