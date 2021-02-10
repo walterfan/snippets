@@ -4,10 +4,9 @@ GMOCK_DIR="/workspace/cpp/googletest/googlemock"
 GTEST_DIR="/workspace/cpp/googletest/googletest"
 
 
-LIB_PATH = ['/usr/lib', '/usr/local/lib', '/usr/local/opt/openssl/lib', './lib', './bin']
+LIB_PATH = ['/usr/lib', '/usr/local/lib', '/usr/local/opt/openssl/lib', './lib', './bin','/usr/lib/x86_64-linux-gnu']
 
 env = Environment()
-env.Append(LINKFLAGS='-lm')
 env.Append(CPPPATH=["/usr/local/include", GMOCK_DIR + "/include", 
     GTEST_DIR + "/include", "./inc", "./src", "./lib", "./com/algorithms"] )
 env.Append(CCFLAGS = '-Wall -g -O1 -static -std=c++11 ')
@@ -38,10 +37,12 @@ unittest=env.Program(target='./bin/unittest', source=['./test/unittest.cpp',
 boosttest=env.Program(target='./bin/boosttest', 
     source=['./test/unittest.cpp', './test/boosttest.cpp'],
 	CCFLAGS='-fno-elide-constructors -Wall -g -O1 -static -std=c++11 -DBOOST_LOG_DYN_LINK',
-	LINKFLAGS='-lboost_log -lboost_thread',
-    LIBS = ['gmock','gtest', 'jsoncpp', 'pthread'], 
-    LIBPATH = LIB_PATH
-    )
+    LIBS = ['gmock','gtest', 'jsoncpp', 'pthread','boost_log','boost_thread'], 
+    LIBPATH = LIB_PATH )
+
+wordbankdemo=env.Program(target='./bin/wordbankdemo', 
+    source=['./exam/WordBankDemo.cpp', './src/WordBank.cpp'],
+	CCFLAGS='-fno-elide-constructors -Wall -g -O1 -static -std=c++17 -DBOOST_LOG_DYN_LINK' )    
 
 text2image=env.Program(target='./bin/text2image', source=['./src/text2image.cpp'], 
 	LINKFLAGS='-lgd -lpng -lz -ljpeg -lfreetype -lm')
@@ -49,7 +50,8 @@ text2image=env.Program(target='./bin/text2image', source=['./src/text2image.cpp'
 run_example=env.Program(target='./bin/run_example', source=[
     './exam/run_example.cpp', './exam/boost_function.cpp', './exam/boost_memory.cpp', './exam/cpp11_lambda.cpp'], 
     CCFLAGS='-fno-elide-constructors -Wall -g -O1 -static -std=c++11 -DBOOST_LOG_DYN_LINK',
-	LINKFLAGS='-lboost_log -lboost_program_options')
+    LIBS = ['jsoncpp', 'pthread','boost_log','boost_thread', 'boost_program_options'], 
+    LIBPATH = LIB_PATH)
 
 waltertest=env.Program(target='./bin/waltertest', source=['./test/waltertest.cpp', 
         './src/showbytes.cpp', './src/FileUtil.cpp',
@@ -64,5 +66,6 @@ Default(waltertest,
     basictest, 
     unittest,
     boosttest,
-    run_example)
+    run_example,
+    wordbankdemo)
 
