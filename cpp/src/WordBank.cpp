@@ -1,19 +1,24 @@
 #include "WordBank.h"
 #include <iostream>
 #include <fstream>
+#include <algorithm>
 
 using namespace std;
 
+bool comparePair(pair<string, int>& a, 
+         pair<string, int>& b) 
+{ 
+    return a.second > b.second; 
+} 
 
-
-
-WordBank::WordBank(string_view words_file) {
+WordBank::WordBank(const string & words_file): m_wordCount(0) {
 	ifstream is(words_file.data());
 	if (!is) {
 		throw invalid_argument("unable open file");
 	}
 	string word;
 	while (is >> word) {
+		m_wordCount ++;
 		if (!hasWord(word)) {
 			addWord(word);
 		}else {
@@ -22,7 +27,7 @@ WordBank::WordBank(string_view words_file) {
 	}
 }
 
-int WordBank::getWordRank(std::string_view word) const {
+int WordBank::getWordRank(const std::string& word) const {
 	
 	int count = getWordCount(word);
 	if (count == 0) {
@@ -31,7 +36,6 @@ int WordBank::getWordRank(std::string_view word) const {
 	
 	int rank = 1;
 	for (const auto&[key, value] : this->m_mapWords) {
-		//std::cout << key << " = " << value << "; ";
 		if (value > count) {
 			rank++;
 		}
@@ -39,7 +43,7 @@ int WordBank::getWordRank(std::string_view word) const {
 	return rank;
 }
 
-int WordBank::getWordCount(std::string_view word) const {
+int WordBank::getWordCount(const std::string& word) const {
 	string str = convertString(word.data());
 	auto it = m_mapWords.find(str);
 	
@@ -49,12 +53,16 @@ int WordBank::getWordCount(std::string_view word) const {
 	return 0;
 }
 
-int  WordBank::size() const {
+
+int WordBank::getWordCount() const {
+	return m_wordCount;
+}
+
+int WordBank::getUniqueWordCount() const {
 	return m_mapWords.size();
 }
 
-
-bool WordBank::hasWord(string_view word) const {
+bool WordBank::hasWord(const string & word) const {
 	string str = convertString(word.data());
 	auto it = m_mapWords.find(str);
 	
@@ -63,7 +71,7 @@ bool WordBank::hasWord(string_view word) const {
 	}
 	return false;
 }
-void WordBank::increaseWordCount(string_view word) {
+void WordBank::increaseWordCount(const string & word) {
 	string str = convertString(word.data());
 	auto it = m_mapWords.find(str);
 
@@ -71,7 +79,7 @@ void WordBank::increaseWordCount(string_view word) {
 		it->second++;
 	}
 }
-void WordBank::addWord(string_view word) {
+void WordBank::addWord(const string & word) {
 	
 	string str = convertString(word);
 	if (str.empty()) {
@@ -82,15 +90,24 @@ void WordBank::addWord(string_view word) {
 }
 
 void WordBank::sortWords() {
-
-	for (auto pair : m_mapWords) {
+/*
+	for (auto& pair : m_mapWords) {
 		m_setWords.insert(pair);
 	}
+*/
+   
+    for (auto& pair : m_mapWords ) { 
+        m_vecWords.push_back(pair); 
+    } 
+  
+    // Sort using comparator function 
+    sort(m_vecWords.begin(), m_vecWords.end(), comparePair); 
+  
 
-}
+} 
 
 void WordBank::printTop(int n) const {
-	for (auto pair : m_setWords) {
+	for (auto pair : m_vecWords) {
 		cout << pair.first << ": " << pair.second << endl;
 		if (--n <= 0) {
 			break;
@@ -99,7 +116,7 @@ void WordBank::printTop(int n) const {
 
 }
 
-string convertString(string_view word) {
+string convertString(const string & word) {
 	string str("");
 	for (size_t i = 0; i < word.length(); ++i) {
 		uint8_t ch = word[i];

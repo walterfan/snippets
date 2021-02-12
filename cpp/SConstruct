@@ -44,7 +44,8 @@ boosttest=env.Program(target='./bin/boosttest',
 
 wordbankdemo=env.Program(target='./bin/wordbankdemo', 
     source=['./exam/WordBankDemo.cpp', './src/WordBank.cpp'],
-	CCFLAGS='-fno-elide-constructors -Wall -g -O1 -static -std=c++17 -DBOOST_LOG_DYN_LINK' )    
+	CCFLAGS='-fno-elide-constructors -Wall -g -O1 -static -std=c++17 -DBOOST_LOG_DYN_LINK -pg',
+    LINKFLAGS='-pg' )    
 
 text2image=env.Program(target='./bin/text2image', source=['./src/text2image.cpp'], 
 	LINKFLAGS='-lgd -lpng -lz -ljpeg -lfreetype -lm')
