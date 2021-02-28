@@ -1,7 +1,12 @@
 #include "WordBank.h"
 #include <cstdlib>
 #include <iostream>
+#include <cmath>
+#include <boost/timer/timer.hpp>
+
+
 using namespace std;
+using namespace boost::timer;
 
 int main(int argc, char *argv[])
 {
@@ -22,16 +27,19 @@ int main(int argc, char *argv[])
 	if (argc > 3) {
 		topN = atoi(argv[3]);
 	}
-	
+	//cpu_timer timer;
 	try {
+		boost::timer::auto_cpu_timer timer;
+		
         WordBank wordbank(word_file);
         wordbank.sortWords();
-		std::cout << "wordbank word count: " << wordbank.getWordCount() << endl;
+		std::cout << "wordbank total word count: " << wordbank.getTotalWordCount() << endl;
         std::cout << "wordbank unique word count: " << wordbank.getUniqueWordCount() << endl;
         cout << word_search << "'s count=" << wordbank.getWordCount(word_search) << endl;
         cout << word_search  << "'s rank=" << wordbank.getWordRank(word_search) << endl;
         cout << "--- top "  << topN << " ---" << endl;
         wordbank.printTop(topN);
+
 	} catch(const invalid_argument& e) {
         cerr << "Caught exeption: " <<e.what() <<endl;
 

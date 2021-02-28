@@ -54,7 +54,7 @@ int WordBank::getWordCount(const std::string& word) const {
 }
 
 
-int WordBank::getWordCount() const {
+int WordBank::getTotalWordCount() const {
 	return m_wordCount;
 }
 
