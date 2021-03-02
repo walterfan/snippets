@@ -31,7 +31,7 @@ public:
 
 	void printTop(int n) const;
 
-	int getWordCount() const;
+	int getTotalWordCount() const;
 
 	int getUniqueWordCount() const;
 

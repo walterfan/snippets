@@ -17,7 +17,7 @@ int main(int argc, char *argv[])
 		word_search = argv[1];
 		cout << "Make statistics for word count and rank: " <<convertString(word_search) << endl;
 	} else {
-		cout << "usage: " << argv[0] << "<search_word> <input_file> <topN>" << endl;
+		cout << "usage: " << argv[0] << " <search_word> <input_file> <topN>" << endl;
 		cout << "example: " << argv[0] << " " << word_search << " " << word_file << " " << topN <<endl;
 	}
 	if (argc > 2) {
@@ -33,7 +33,7 @@ int main(int argc, char *argv[])
 		
         WordBank wordbank(word_file);
         wordbank.sortWords();
-		std::cout << "wordbank total word count: " << wordbank.getTotalWordCount() << endl;
+        std::cout << "wordbank total word count: " << wordbank.getTotalWordCount() << endl;
         std::cout << "wordbank unique word count: " << wordbank.getUniqueWordCount() << endl;
         cout << word_search << "'s count=" << wordbank.getWordCount(word_search) << endl;
         cout << word_search  << "'s rank=" << wordbank.getWordRank(word_search) << endl;
