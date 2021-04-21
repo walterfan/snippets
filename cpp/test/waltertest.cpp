@@ -6,6 +6,13 @@
 #include "StringUtil.h"
 #include "wf_sort.h"
 
+#include <stdio.h>
+#include <string.h>
+#include <time.h>
+#include <sys/time.h>
+#include <assert.h>
+#include <unistd.h>
+
 using namespace std;
 using namespace wfan;
 
@@ -58,6 +65,7 @@ int test(int argc, char *argv[])
     return 0;
 }
 
+
 int main(int argc, char *argv[])
 {
 	msg_trace("--- Walter test program ---");
@@ -96,7 +104,6 @@ int main(int argc, char *argv[])
         std::cout<<"bMap: "<< bMap.size()<<endl;
         
     }
-
 	msg_trace("--- end ---");
 	return nRet;
 }

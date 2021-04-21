@@ -14,20 +14,28 @@ using ::testing::Mock;
 
 namespace
 {
-  void OnExecute(int param1, float param2, int param3) 
-        { printf("1) OnExecute: %d, %f, %d\n", param1, param2, param3);}
-  void OnExecute(int param) 
-        { printf("2) OnExecute: %d\n", param); }
-  void OnExecute(float param) 
-        { printf("3) OnExecute: %f\n", param); }
+  void OnExecute(int param1, float param2, int param3)  { 
+      printf("1) OnExecute: %d, %f, %d\n", param1, param2, param3);
+  }
+
+  void OnExecute(int param) { 
+      printf("2) OnExecute: %d\n", param); 
+  }
+
+  void OnExecute(float param) { 
+      printf("3) OnExecute: %f\n", param); 
+  }
 
   class CTask
   {
   public: // interface
-    void OnExecute(float param) 
-        { printf("4) OnExecute: %f\n", param);}
-    void OnExecute(int param) 
-        {printf("5) OnExecute: %d\n", param);}
+    void OnExecute(float param) { 
+        printf("4) OnExecute: %f\n", param);
+    }
+
+    void OnExecute(int param) {
+        printf("5) OnExecute: %d\n", param);
+    }
   };
 
   void print_user_detail(int age, float salary, std::string name)
