@@ -27,3 +27,20 @@ function regexTest() {
     weblog("/shar/.test('share'):", /shar/.test('share'));
     weblog("/share/.test('sharing'):", /shar/.test('sharing'));
 }
+
+function objectTest() {
+        var peerId = 0;
+        var midMap = {};
+        var trnCvr = [{"mid": 0}, {"mid": 1}, {"mid": 2}];
+        for (var i = 0; i < trnCvr.length; i++) {
+            midMap[trnCvr[i].mid] = peerId++;
+            weblog(trnCvr[i].mid, ": ", midMap[trnCvr[i].mid]);
+            
+        }
+        for (var _peerId in midMap) {
+            weblog("peerId: ", peerId, "_peerId:", _peerId);
+        }
+        weblog(midMap.hasOwnProperty(0), midMap.hasOwnProperty("0"));
+        return midMap;
+    
+}

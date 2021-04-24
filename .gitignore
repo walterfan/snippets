@@ -1,4 +1,11 @@
+.cproject
+.project
+.vscode/
+venv/
 *.dblite
+*.pyc
+.ipynb_checkpoints/
+__pycache__/
 target/
 .idea/
 .mvn/

@@ -1,3 +1,4 @@
+
 function weblog() {
     
     var arrMsg = [];
