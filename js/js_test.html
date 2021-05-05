@@ -17,20 +17,67 @@
 <script type="text/javascript" src="basic_test.js"></script>
 <script>
    
+    function setValue(data, key, curValue) {
+        var value =  curValue || 0;
+        if(!data[key]) {
+            data[key] = curValue;
+        } else if(value && value < data[key]) {
+            data[key] = value;
+        }
+    }
+
+    function checkValue(key) {
+        return (key === 'lossRatioRecv' || key === 'lossRatioSend' || key === 'bitrateRecv' || key === 'bitrateSend' || key === 'jitterRecv' || key === 'jitterSent');
+
+    }
+
+    function checkValueByRegex(key) {
+        
+        return /lossRatioRecv|lossRatioSend|bitrateRecv|bitrateSend|jitterRecv|jitterSent/.test(key);
+
+    }
+
+    function calculateMoveAverage(data, key, value, alpha) {
+        var average = data[key];
+        if(!average) {
+            average = value || 0;
+        } else {
+            average = alpha * value + (1 - alpha) * average;
+        }
+        data[key] = average;
+    }
+
     
 
 	$(function() {
-		console.log("-- begin --");
-        objectKeyTypeTest();
-        objectTest();
+		weblog("-- begin --");
+       
 
-        const subTree = document.getElementById("content");
-        for(let element of DomTraversal(subTree)) {
-            weblog(element.nodeName);
-        }
-        console.log("-- end --");
-
+        var svrStats = {}
+        setValue(svrStats, "lostRatio", 0);
+        weblog("see1", svrStats["lostRatio"]);
+        setValue(svrStats, "lostRatio", 0.3);
+        weblog("see2", svrStats["lostRatio"]);
+        setValue(svrStats, "lostRatio", 0.2);
+        weblog("see3", svrStats["lostRatio"]);
+        setValue(svrStats, "lostRatio", 0);
+        weblog("see4", svrStats["lostRatio"]);
         
+        weblog("-- regex test --");
+        for(key of ['haha', 'lossRatioRecv' , 'lossRatioSend' , 'bitrateRecv' , 'bitrateSend' , 'jitterRecv' , 'jitterSent']) {
+            weblog("checkValue", key, checkValue(key));
+            weblog("checkValueByRegex", key, checkValueByRegex(key));
+        }
+        weblog("-- move average test --");
+        var data = {};
+        const alpha = 0.9;
+        calculateMoveAverage(data, 'packetLoss', 60, alpha);
+        calculateMoveAverage(data, 'packetLoss', 50, alpha);
+        calculateMoveAverage(data, 'packetLoss', 97, alpha);
+        calculateMoveAverage(data, 'packetLoss', 98, alpha);
+        calculateMoveAverage(data, 'packetLoss', 99, alpha);
+        weblog("packetLoss:", data['packetLoss']);
+        weblog("-- end --");
 	});
 </script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/cerulean/bootstrap.min.css" type="text/css"/>
