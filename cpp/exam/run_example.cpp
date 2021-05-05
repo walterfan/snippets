@@ -3,18 +3,20 @@
 using namespace std;
 namespace po = boost::program_options;
 
+extern int std_function_test(int argc, char** argv);
 extern int function_demo(int argc, char** argv);
 extern int lambda_demo(int argc, char* argv[]);
 extern int rvalue_demo(int argc, char* argv[]);
 extern int smart_ptr_demo(int argc, char** argv);
 
-const int CASE_COUNT =4;
+const int CASE_COUNT = 5;
 
 const char* usage = R"name(please specify example name:
     function_demo
     or lambda_demo
     or rvalue_demo
     or smart_ptr_demo
+    or std_function_test
 )name";
 
 
@@ -148,6 +150,7 @@ void ExampleRunner::init() {
     register_example("smart_ptr_demo", smart_ptr_demo);
     register_example("lambda_demo", lambda_demo);
 	register_example("rvalue_demo", rvalue_demo);
+    register_example("std_function_test", std_function_test);
 }
 
 void ExampleRunner::register_example(const string& name, const exam_func_t &exam)
