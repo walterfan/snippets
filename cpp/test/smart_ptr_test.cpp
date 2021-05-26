@@ -13,16 +13,19 @@ using ::testing::Mock;
 #define FINGERPRINT 0xffff
 static long snTestNum = 0;
 
-struct Foo
+struct Packet
 {
     uint32_t fingerprint;
-    Foo(uint32_t seqNum): fingerprint(FINGERPRINT),sn(seqNum)      
-    { std::cout << "Foo::Foo " << sn <<endl;  }
-    ~Foo()     
-    { std::cout << "Foo::~Foo " << sn << endl; fingerprint = 0;}
-    uint32_t GetSN() 
-    { std::cout << "Foo::GetSN " << sn << endl; return sn; }
     uint32_t sn;
+
+    Packet(uint32_t seqNum): fingerprint(FINGERPRINT),sn(seqNum)      
+    { std::cout << "Packet::Packet " << sn <<endl;  }
+    ~Packet()     
+    { std::cout << "Packet::~Packet " << sn << endl; fingerprint = 0;}
+    uint32_t GetSN() 
+    { std::cout << "Packet::GetSN " << sn << endl; return sn; }
+
+
 };
 
 
@@ -59,10 +62,10 @@ protected:
 
 };
 
-uint32_t GetFingerprint(Foo* pFoo)
+uint32_t GetFingerprint(Packet* pPacket)
 {
-    std::cout << "Foo* pFoo address=" << pFoo << endl;
-    uint32_t* pFingerprint = (uint32_t*)pFoo;
+    std::cout << "Packet* pPacket address=" << pPacket << endl;
+    uint32_t* pFingerprint = (uint32_t*)pPacket;
     printf("fingerprint=%d\n", *pFingerprint);
     return *pFingerprint;
 }
@@ -70,9 +73,9 @@ uint32_t GetFingerprint(Foo* pFoo)
 TEST_F(SmartPtrTest, AutoPtrTest)
 {
    RecordTestCase("create a pointer to auto_ptr", "out of the scope", "the pointer will be released");
-   Foo* p0 = new Foo(++snTestNum);
+   Packet* p0 = new Packet(++snTestNum);
    {
-       auto_ptr<Foo> p1(p0);
+       auto_ptr<Packet> p1(p0);
        p1 -> GetSN();
        ASSERT_EQ(GetFingerprint(p0), FINGERPRINT);
    }
@@ -84,18 +87,18 @@ TEST_F(SmartPtrTest, UniquePtrTest)
 {
    RecordTestCase("create a pointer to unique_ptr", "out of the scope", "the pointer will be released");
 	
-    Foo* p0 = new Foo(++snTestNum);
+    Packet* p0 = new Packet(++snTestNum);
     {
-        std::unique_ptr<Foo> p1(p0);  // p1 owns Foo
+        std::unique_ptr<Packet> p1(p0);  // p1 owns Packet
         if (p1) p1->GetSN();
      
         {
-            std::unique_ptr<Foo> p2(std::move(p1));  // now p2 owns Foo, p1 contain a null pointer
+            std::unique_ptr<Packet> p2(std::move(p1));  // now p2 owns Packet, p1 contain a null pointer
             ASSERT_FALSE(p1);
             ASSERT_EQ(GetFingerprint(p2.get()), FINGERPRINT);
             
             p1 = std::move(p2);  // ownership returns to p1
-            std::cout << "destroying p2...\n";
+            cout << "destroying p2..." << endl;
         }
      
         if (p1) p1->GetSN();
@@ -107,30 +110,29 @@ TEST_F(SmartPtrTest, UniquePtrTest)
 TEST_F(SmartPtrTest, SharedPtrTest)
 {
     RecordTestCase("create a pointer to shared_ptr", "out of the scope", "the pointer will be released");
-    Foo* p0 = new Foo(++snTestNum);
+    Packet* p0 = new Packet(++snTestNum);
     {
-        std::shared_ptr<Foo> p1(p0);
-        
+        std::shared_ptr<Packet> p1(p0);
         {
-            std::shared_ptr<Foo> p2 = p1;
+            std::shared_ptr<Packet> p2 = p1;
         }
     }
 }
 
 TEST_F(SmartPtrTest, WeakPtrTest)
 {
-    RecordTestCase("create a pointer to unique_ptr", "out of the scope", "the pointer will be released");
-    Foo* p0 = new Foo(++snTestNum);
+    RecordTestCase("create a pointer to weak_ptr", "out of the scope", "the pointer will be released");
+    Packet* p0 = new Packet(++snTestNum);
   
-    std::shared_ptr<Foo> ps(p0);
-    std::weak_ptr<Foo> pw = ps;
+    std::shared_ptr<Packet> ps(p0);
+    std::weak_ptr<Packet> pw = ps;
 
     std::cout << "sn == " << ps->GetSN() << ": ";
     if (auto spt = pw.lock()) { // Has to be copied into a shared_ptr before usage
-        std::cout << spt->GetSN() << "\n";
+        std::cout << spt->GetSN() << endl;
     }
     else {
-        std::cout << "gw is expired\n";
+        std::cout << "gw is expired"<< endl;
     }
 }
 

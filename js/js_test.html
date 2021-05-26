@@ -77,6 +77,15 @@
         calculateMoveAverage(data, 'packetLoss', 98, alpha);
         calculateMoveAverage(data, 'packetLoss', 99, alpha);
         weblog("packetLoss:", data['packetLoss']);
+
+        weblog("-- haha --");
+        var clientReportData = { "mediaType": "share"};
+        if (/shar/.test(clientReportData.mediaType)) {
+            weblog("-- good --");
+        }
+
+
+
         weblog("-- end --");
 	});
 </script>

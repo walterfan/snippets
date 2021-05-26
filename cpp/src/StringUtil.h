@@ -56,6 +56,7 @@ int get_value_by_key(const std::string& strMsml, string &strValue, const char* k
 
 int replace_value_by_key(std::string& strMsml, string mask, const char* key="conn:", const char* sep="/\"");
 
+bool isValidBracket(const std::string& str);
 
 }//namespace wfan
 
