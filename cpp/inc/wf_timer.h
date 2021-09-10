@@ -11,45 +11,28 @@
 
 #ifndef __WF_TIMER_H__
 #define __WF_TIMER_H__
-
+#include <iostream>
+#include <stdint.h>
+#include <time.h>
+#include <unistd.h>
 #include <chrono>
+
+using namespace std;
 using namespace std::chrono;
 
-class TimerBase {
-public:
-    TimerBase():m_start(system_clock::time_point::min()) {
 
+uint32_t getCurrentTime() { // in ms
+    static  struct timespec timeOffset = {0,0};
+    struct timespec curTime;
+    if (timeOffset.tv_sec ==0) {
+      //CLOCK_MONOTONIC_COARSE is specified in linux  
+      clock_gettime(CLOCK_MONOTONIC, &timeOffset);
+      cout<<"static-only once, getCurrentTime() Init timeOffset sec=" << timeOffset.tv_sec << " nsec=" <<  timeOffset.tv_nsec <<endl;
     }
-
-    void Clear() {
-        m_start = system_clock::timer_point::min();
-    }
-
-    bool IsStarted() const {
-        return m_start.time_since_epoch() != system_clock::duration(0);
-    }
-
-    void Start() {
-        m_start = system_clock::now();
-    }
-
-    unsigned long GetMS() {
-        if(IsStarted()) {
-            system_clock::duration diff;
-            diff = system_clock::now() - m_start;
-            return (unsigned)(duration_cast<milliseconds>(diff).count());
-        }
-        return 0;
-    }
-private:
-    system_clock::time_point m_start;
-};
-
-template <typename T> class basic_stopwatch: T {
-    typedef typename T BaseTimer;
-public:
-    explict basic_stopwatch(bool start);
-    explict basic_stopwatch(char const* activity = "Stopwatch", bool start = true);    
-};
+    clock_gettime(CLOCK_MONOTONIC, &curTime); // fast
+    long ms = ((curTime.tv_nsec - timeOffset.tv_nsec))/1000000; 
+    cout<<"getCurrentTime()  curTime sec=" << curTime.tv_sec << " nsec=" <<  curTime.tv_nsec << ", ms=" << ms <<endl;
+    return ((curTime.tv_sec-timeOffset.tv_sec)*1000 + ms); 
+  }
 
 #endif

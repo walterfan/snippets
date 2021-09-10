@@ -63,13 +63,13 @@ public:
 
     virtual ~ExampleRunner();
 
-        void init();
+    void init();
 
     size_t size() const;
 
-        void register_example(const std::string& name, const exam_func_t &exam);
+    void register_example(const std::string& name, const exam_func_t &exam);
 
-        int execute_example(const std::string& name, int argc, char** argv) const;
+    int execute_example(const std::string& name, int argc, char** argv) const;
 private:
     volatile uint32_t m_example_count = 0;
     std::unordered_map<std::string, exam_func_t> m_func_examples;        

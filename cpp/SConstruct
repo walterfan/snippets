@@ -9,15 +9,18 @@ LIB_PATH = ['/usr/lib', '/usr/local/lib', '/usr/local/opt/openssl/lib', './lib',
 env = Environment()
 env.Append(CPPPATH=["/usr/local/include", GMOCK_DIR + "/include", 
     GTEST_DIR + "/include", "./inc", "./src", "./lib", "./com/algorithms"] )
-env.Append(CCFLAGS = '-Wall -g -O1 -static -std=c++11 ')
+env.Append(CCFLAGS = '-fno-elide-constructors -Wall -g -O1 -static -std=c++11 -DBOOST_LOG_DYN_LINK')
 env.Append(LIBPATH=["/usr/local/lib", "./lib/googlemock", "./lib/googlemock/gtest"])
+
 
 basictest=env.Program(target='./bin/function_ptr_test', source=['./test/function_ptr_test.cpp'])
 
 tinydiagram=env.Program(target='./bin/tiny_diagram', source=['./exam/tiny_diagram.cpp'])
 
 
-#algotest=env.Program(target='./bin/HuffmanCodeTest', source=['./com/algorithms/HuffmanCode.cpp'], CCFLAGS = '-Wall -g -O1 -static -std=c++11 -D_TEST_HUFFMAN_CODE_=1')
+algotest=env.Program(target='./bin/alogtest', 
+    source=['./com/algorithms/wf_sort.cpp', './com/algorithms/AlgoTest.cpp'], 
+    LIBS = ['gmock','gtest', 'jsoncpp', 'pthread', 'boost_log', 'boost_timer', 'boost_system', 'boost_chrono'], LIBPATH = LIB_PATH)
 
 unittest=env.Program(target='./bin/unittest', source=['./test/unittest.cpp', 
 	'./test/basictest.cpp', 
@@ -33,14 +36,8 @@ unittest=env.Program(target='./bin/unittest', source=['./test/unittest.cpp',
     './test/TimeFuncTest.cpp',
     './test/future_test.cpp',
 	'./test/smart_ptr_test.cpp'],
-	CCFLAGS='-fno-elide-constructors -Wall -g -O1 -static -std=c++11 -DBOOST_LOG_DYN_LINK',
     LIBS = ['gmock','gtest', 'jsoncpp', 'pthread'], LIBPATH = LIB_PATH)
 
-boosttest=env.Program(target='./bin/boosttest', 
-    source=['./test/unittest.cpp', './test/boosttest.cpp'],
-	CCFLAGS='-fno-elide-constructors -Wall -g -O1 -static -std=c++11 -DBOOST_LOG_DYN_LINK',
-    LIBS = ['gmock','gtest', 'jsoncpp', 'pthread','boost_log','boost_thread'], 
-    LIBPATH = LIB_PATH )
 
 wordbankdemo=env.Program(target='./bin/wordbankdemo', 
     source=['./exam/WordBankDemo.cpp', './src/WordBank.cpp'],
@@ -57,24 +54,24 @@ run_example=env.Program(target='./bin/run_example', source=[
     './exam/boost_function.cpp', 
     './exam/boost_memory.cpp',
     './exam/std_function_exam.cpp', 
-    './exam/cpp11_lambda.cpp'], 
-    CCFLAGS='-fno-elide-constructors -Wall -g -O1 -static -std=c++11 -DBOOST_LOG_DYN_LINK',
+    './exam/cpp11_lambda.cpp',
+    './src/AudioLevelCalculator.cpp'], 
     LIBS = ['jsoncpp', 'pthread','boost_log','boost_thread', 'boost_program_options'], 
     LIBPATH = LIB_PATH)
 
-waltertest=env.Program(target='./bin/waltertest', source=['./test/waltertest.cpp', 
+waltertest=env.Program(target='./bin/waltertest', 
+    source=['./test/waltertest.cpp', 
         './src/showbytes.cpp', './src/FileUtil.cpp',
         './src/StringUtil.cpp',
         './src/NetworkUtil.cpp'], 
-    CCFLAGS='-fno-elide-constructors -Wall -g -O1 -static -std=c++11 -DBOOST_LOG_DYN_LINK',    
     LINKFLAGS='-lm')
 
 #, LIBS = ['gmock', 'gtest'], LIBPATH = ['./bin', GMOCK_DIR + "/lib/.libs", GTEST_DIR + "/lib/.libs" ])
 #Default(basic_test)
-Default(waltertest, 
+Default(waltertest,     
+   algotest,
     basictest, 
     unittest,
-    boosttest,
     run_example,
     wordbankdemo)
 
