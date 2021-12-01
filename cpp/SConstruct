@@ -62,7 +62,7 @@ run_example=env.Program(target='./bin/run_example', source=[
 waltertest=env.Program(target='./bin/waltertest', 
     source=['./test/waltertest.cpp', 
         './src/showbytes.cpp', './src/FileUtil.cpp',
-        './src/StringUtil.cpp',
+        './src/StringUtil.cpp', './src/MediaUtil.cpp',
         './src/NetworkUtil.cpp'], 
     LINKFLAGS='-lm')
 

@@ -5,7 +5,7 @@
 #include "FileUtil.h"
 #include "StringUtil.h"
 #include "wf_sort.h"
-
+#include "MediaUtil.h"
 #include <stdio.h>
 #include <string.h>
 #include <time.h>
@@ -53,16 +53,21 @@ int test(int argc, char *argv[])
     int nTag = 0xBEDE;
     show_bytes((uint8_t*)&nTag, 4);
 
-    uint32_t  nLen = 102 << 2;
-    printf("nLen = %d  ", nLen);
-    msg_trace("--- new test ---");
+    if(wfan::CNetworkUtil::IsLittleEndian()) {
+      msg_trace("little endian");
+    }
+    else {
+      msg_trace("big endian");
+    }
 
-    string xmlPath = "/opt/webex/ivr/scripts/customized/quintiles/quintiles.xml";
-    string prefix = "/opt/webex/ivr/scripts/";
+    vector<string> files;
+    int nRet = RetrieveFiles(argv[1], files);
+    SortUtils<string>::insert_sort(files);
+    std::cout <<"--- Folder "<< argv[1] << "'s files ---"<<endl;
+    for_each (files.begin(), files.end(), list_file);
+    std::cout<<"--- EOF ---"<<endl;
 
-    string xmlFile = xmlPath.substr(prefix.length());
-    msg_trace("xmlFile: "<<xmlFile);
-    return 0;
+    return nRet;
 }
 
 
@@ -70,41 +75,17 @@ int main(int argc, char *argv[])
 {
 	msg_trace("--- Walter test program ---");
 	
-    int nRet = 0;
-    //nRet = protobuf_write(argc, argv);
-	//nRet = protobuf_read(argc, argv);
-
-    if(wfan::CNetworkUtil::IsLittleEndian()) {
-		msg_trace("little endian");
-	}
-	else {
-		msg_trace("big endian");
-	}
-    if(argc > 1) {
-        vector<string> files;
-	    nRet = RetrieveFiles(argv[1], files);
-        SortUtils<string>::insert_sort(files);
-        std::cout <<"--- Folder "<< argv[1] << "'s files ---"<<endl;
-        for_each (files.begin(), files.end(), list_file);
-        std::cout<<"--- EOF ---"<<endl;
-        
+  int nRet = 0;  
+  if(argc > 1) {
+     msg_trace("--- read media file ---");
+     string media_file = argv[1];
+     MediaFileParser* pParser = new MediaFileParser(media_file);
+     pParser->parse_nalu();
+     delete pParser;
+     msg_trace("--- byebye ---");
 	} else {
-
-        msg_trace("--- new test ---");
-
-        map<string, string> aMap;
-        aMap["name"]= "walter";
-        std::cout<<"aMap: "<< aMap.size()<<endl;
-
-        map<string, string> bMap;
-        std::cout<<"bMap: "<< bMap.size()<<endl;
-
-        aMap.swap(bMap);
-        std::cout<<"aMap: "<< aMap.size()<<endl;
-        std::cout<<"bMap: "<< bMap.size()<<endl;
-        
-    }
-	msg_trace("--- end ---");
+     msg_trace("Usage: " << argv[0] << " <media_file>");
+  }
 	return nRet;
 }
 
