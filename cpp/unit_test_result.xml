@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites tests="5" failures="0" disabled="0" errors="0" timestamp="2021-06-20T18:28:17" time="3.735" name="AllTests">
+  <testsuite name="LsearchTest" tests="2" failures="0" disabled="0" errors="0" time="0">
+    <testcase name="SearchIntegerTest" status="run" time="0" classname="LsearchTest" />
+    <testcase name="SearchStringTest" status="run" time="0" classname="LsearchTest" />
+  </testsuite>
+  <testsuite name="SortUtilsTest" tests="1" failures="0" disabled="0" errors="0" time="0">
+    <testcase name="InsertSort" status="run" time="0" classname="SortUtilsTest" />
+  </testsuite>
+  <testsuite name="FibTest" tests="1" failures="0" disabled="0" errors="0" time="3.734">
+    <testcase name="FibTest" status="run" time="3.734" classname="FibTest" />
+  </testsuite>
+  <testsuite name="ListNodeTest" tests="1" failures="0" disabled="0" errors="0" time="0">
+    <testcase name="CycleTest" status="run" time="0" classname="ListNodeTest" />
+  </testsuite>
+</testsuites>

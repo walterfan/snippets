@@ -1,0 +1,10 @@
+// flowchart
+digraph {
+	graph [rankdir=LR]
+	node [shape=box]
+	start [label=Start]
+	hello [label=Hello]
+	end [label=End]
+	start -> hello
+	hello -> end
+}
