@@ -7,6 +7,22 @@
 
 using namespace std;
 
+typedef struct rtpHeader {
+    uint8_t  version;
+    uint8_t  payloadType;
+    uint16_t seqNo;
+    uint32_t timestamp;
+    uint32_t mediaSSRC;
+    uint8_t  payload[1];
+} rtpHeader_t;
+
+
+typedef struct {
+    char tag[4];
+    uint32_t len;
+} dump_rtp_hdr;
+
+
 struct NALU {
 
     enum Type {
@@ -55,7 +71,12 @@ public:
      * @return     -- the NALU count
      */
     uint32_t parse_nalu();
+
 private:
+
+
+    int find_nal_unit(uint8_t* buf, int size, int* nal_start, int* nal_end);
+
     string m_filename;
     size_t m_filesize;
     size_t m_nalu_count;

@@ -1,4 +1,5 @@
 #include <iostream>
+#include <arpa/inet.h>
 #include "MediaUtil.h"
 
 MediaFileParser::MediaFileParser(string& filename)
@@ -12,7 +13,8 @@ MediaFileParser::~MediaFileParser() {
 uint32_t MediaFileParser::parse_nalu() {
     FILE * pFile;
    
-    char * buffer;
+    char * buffer = NULL;
+    char * nextDumpBuffer = NULL;
     size_t result;
 
     pFile = fopen ( m_filename.c_str() , "rb" );
@@ -32,10 +34,45 @@ uint32_t MediaFileParser::parse_nalu() {
     if (result != m_filesize) {fputs ("Reading error",stderr); exit (3);}
 
     /* the whole file is now loaded in the memory buffer. */
+    dump_rtp_hdr* pDumpHeader = (dump_rtp_hdr*)buffer;
+    cout << "tag=" << pDumpHeader->tag  << ", len=" << pDumpHeader->len << endl;
 
+    buffer += sizeof(dump_rtp_hdr);
+    nextDumpBuffer = buffer + pDumpHeader->len;
+    rtpHeader_t* pRtp = (rtpHeader_t*)buffer;
+
+    int cc = pRtp->version & 0x0f; // cc
+    
+    int x = pRtp->version & 0x10;
+    int m = pRtp->payloadType & 0x80;
+
+    int minLen = 12 + 4 * cc;
+    if(x) {
+        uint16_t* pWord = (uint16_t*)(buffer + minLen);
+        minLen += 4;
+
+        int extProfile = ntohs(*pWord);
+        uint32_t extSize = ntohs(*(pWord + 1))*4;
+        minLen += extSize;
+        
+    }
+    cout << "pt=" << (pRtp->payloadType & 0x7f) <<
+    ", sn=" << ntohs(pRtp->seqNo) <<
+    ", ts=" << ntohl(pRtp->timestamp)  <<
+    ", ssrc=" <<ntohl(pRtp->mediaSSRC) <<
+    ", cc=" << cc <<
+    ", x=" << x <<
+    ", m=" << m << endl;
+
+    buffer += minLen;
+
+    uint8_t *pNalHeader = (uint8_t*)buffer;
+    int naluType = *pNalHeader & 0x1f;
+    cout << "naluType=" << naluType << endl;
     // terminate
+    
+    //free (buffer);
     fclose (pFile);
-    free (buffer);
     return 0;
 }
 
