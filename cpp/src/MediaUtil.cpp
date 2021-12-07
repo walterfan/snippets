@@ -65,11 +65,16 @@ uint32_t MediaFileParser::parse_nalu() {
     ", m=" << m << endl;
 
     buffer += minLen;
-
+    // NAL Unit Header
     uint8_t *pNalHeader = (uint8_t*)buffer;
     int naluType = *pNalHeader & 0x1f;
     cout << "naluType=" << naluType << endl;
-    // terminate
+    //5: IDR, 6: SEI, 7: SPS, 8: PPS
+    //24: STAP-A
+    if(naluType == 24) {
+
+    }
+    // NAL Unit
     
     //free (buffer);
     fclose (pFile);
