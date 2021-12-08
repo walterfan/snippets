@@ -65,18 +65,17 @@ public:
     MediaFileParser(const MediaFileParser&) = delete;
     MediaFileParser& operator=(const MediaFileParser&) = delete;
 
-    /**
-     * Parse FU (fragment NAL). For SVC in WebEx format, it can contain different nalTypes.
-     * @fp         -- the file handler
-     * @return     -- the NALU count
-     */
-    uint32_t parse_nalu();
+
+    int parse_stream();
+    int handle_packet(uint8_t* pPacket, int len);
+    int handle_nalu(uint8_t* pPacket, int len);
+    
+    int handle_stap(uint8_t* pPacket, int len);
+    int handle_fu(uint8_t* pPacket, int len);
+
+
 
 private:
-
-
-    int find_nal_unit(uint8_t* buf, int size, int* nal_start, int* nal_end);
-
     string m_filename;
     size_t m_filesize;
     size_t m_nalu_count;

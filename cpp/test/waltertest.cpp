@@ -80,7 +80,7 @@ int main(int argc, char *argv[])
      msg_trace("--- read media file ---");
      string media_file = argv[1];
      MediaFileParser* pParser = new MediaFileParser(media_file);
-     pParser->parse_nalu();
+     pParser->parse_stream();
      delete pParser;
      msg_trace("--- byebye ---");
 	} else {
