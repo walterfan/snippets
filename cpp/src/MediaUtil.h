@@ -67,6 +67,7 @@ public:
 
 
     int parse_stream();
+
     int handle_packet(uint8_t* pPacket, int len);
     int handle_nalu(uint8_t* pPacket, int len);
     
@@ -78,7 +79,12 @@ public:
 private:
     string m_filename;
     size_t m_filesize;
+    string m_h264_file;
     size_t m_nalu_count;
+
+    FILE* m_input_file;
+    FILE* m_output_file;
+
     vector<NALU> m_vec_nalu;
 };
 

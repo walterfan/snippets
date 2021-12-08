@@ -10,29 +10,34 @@
 #define err_trace(msg)	std::cout<<"[ERROR] "<<__FILE__<<","<<__LINE__<<": " << msg <<std::endl
 
 MediaFileParser::MediaFileParser(string& filename)
-: m_filename(filename), m_filesize(0), m_nalu_count(0), m_vec_nalu(1024) {
-    cout <<"MediaFileParser " << m_filename << endl;
+: m_filename(filename), m_filesize(0), m_nalu_count(0), m_input_file(NULL), m_output_file(NULL), m_vec_nalu(1024) {
+    m_h264_file = filename + ".h264";
+    cout <<"MediaFileParser " << m_filename << " to " << m_h264_file << endl;
 }
 MediaFileParser::~MediaFileParser() {
     cout <<"~MediaFileParser filesize=" << m_filesize << ", nal count=" << m_nalu_count << endl;
 }
 
 int MediaFileParser::parse_stream() {
-    FILE * pFile;
  
     size_t result = 0;
 
-    pFile = fopen ( m_filename.c_str() , "rb" );
-    if (pFile==NULL) {fputs ("File error",stderr); exit (1);}
+    m_input_file = fopen ( m_filename.c_str() , "rb" );
+    m_output_file = fopen ( m_h264_file.c_str() , "wb" );
+
+    if (m_input_file==NULL) {
+        fputs ("File error",stderr); exit (1);
+    }
 
     // obtain file size:
-    fseek (pFile , 0 , SEEK_END);
-    m_filesize = ftell (pFile);
-    rewind (pFile);
+    fseek (m_input_file , 0 , SEEK_END);
+    m_filesize = ftell (m_input_file);
+    rewind (m_input_file);
+
     //sizeof(dump_rtp_hdr)=8
     char pktBuf[2048];
-    while(!feof(pFile)) {
-        result = fread (pktBuf, 1, 8, pFile);
+    while(!feof(m_input_file)) {
+        result = fread (pktBuf, 1, 8, m_input_file);
         if(result < 8) {
             err_trace("dump header only read" << result);
             break;
@@ -42,7 +47,7 @@ int MediaFileParser::parse_stream() {
         debug_trace("tag=" << pDumpHeader->tag  << ", len=" << pDumpHeader->len);
         int pktLen = pDumpHeader->len;
 
-        result = fread(pktBuf, 1, pktLen, pFile);
+        result = fread(pktBuf, 1, pktLen, m_input_file);
         if(result < pktLen) {
             err_trace("packet only read " << result << ", should be " << pktLen);
             break;
@@ -51,7 +56,9 @@ int MediaFileParser::parse_stream() {
 
     }
 
-    fclose (pFile);
+    fclose(m_input_file);
+    fclose(m_output_file);
+
     return 0;
 }
 
@@ -89,6 +96,10 @@ int MediaFileParser::handle_packet(uint8_t* pPacket, int len) {
 }
 
 int MediaFileParser::handle_nalu(uint8_t* pPacket, int len) {
+    char p8[4] = {0,0,0,1};
+    fwrite(p8, 1, 4, m_output_file);
+    fwrite(pPacket, 1, len, m_output_file);
+
     // NAL Unit Header
     uint8_t *pNalHeader = (uint8_t*)pPacket;
     int naluType = *pNalHeader & 0x1f;
@@ -101,6 +112,7 @@ int MediaFileParser::handle_nalu(uint8_t* pPacket, int len) {
         handle_fu(pPacket, len);
     } 
     // parse NAL Unit
+    m_nalu_count++;
     return 0;
 }
 
@@ -120,7 +132,6 @@ int MediaFileParser::handle_stap(uint8_t* pPacket, int len) {
 
 /*
 FU header:
-
       +---------------+
       |0|1|2|3|4|5|6|7|
       +-+-+-+-+-+-+-+-+
