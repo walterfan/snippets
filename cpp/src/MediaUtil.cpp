@@ -36,6 +36,9 @@ int MediaFileParser::parse_stream() {
 
     //sizeof(dump_rtp_hdr)=8
     char pktBuf[2048];
+    cout << "# ,";
+    RtpInfo::printTitles(cout);
+    int i = 0;
     while(!feof(m_input_file)) {
         result = fread (pktBuf, 1, 8, m_input_file);
         if(result < 8) {
@@ -52,7 +55,11 @@ int MediaFileParser::parse_stream() {
             err_trace("packet only read " << result << ", should be " << pktLen);
             break;
         }
-        this->handle_packet((uint8_t*)pktBuf, pktLen);
+        rtp_info_t rtpInfo;
+        this->handle_packet((uint8_t*)pktBuf, pktLen, rtpInfo);
+        cout << (++i) << ", ";
+        rtpInfo.printValues(cout);
+        //cout << rtpInfo <<endl;
 
     }
 
@@ -63,7 +70,7 @@ int MediaFileParser::parse_stream() {
 }
 
 
-int MediaFileParser::handle_packet(uint8_t* pPacket, int len) {
+int MediaFileParser::handle_packet(uint8_t* pPacket, int len, rtp_info_t& rtpInfo) {
     rtpHeader_t* pRtp = (rtpHeader_t*)pPacket;
 
     int cc = pRtp->version & 0x0f; // cc
@@ -81,21 +88,22 @@ int MediaFileParser::handle_packet(uint8_t* pPacket, int len) {
         minLen += extSize;
         
     }
-    cout << "pt=" << (pRtp->payloadType & 0x7f) << ", size=" << len <<
-    ", sn=" << ntohs(pRtp->seqNo) <<
-    ", ts=" << ntohl(pRtp->timestamp)  <<
-    ", ssrc=" <<ntohl(pRtp->mediaSSRC) <<
-    ", cc=" << cc <<
-    ", x=" << x <<
-    ", m=" << m << endl;
+    rtpInfo.put("pt",  to_string(pRtp->payloadType & 0x7f));
+    rtpInfo.put("size" ,  to_string(len));
+    rtpInfo.put("sn" ,  to_string(ntohs(pRtp->seqNo) ));
+    rtpInfo.put("ts" ,  to_string(ntohl(pRtp->timestamp) ));
+    rtpInfo.put("ssrc" ,  to_string(ntohl(pRtp->mediaSSRC) ));
+    rtpInfo.put("cc" ,  to_string( cc ));
+    rtpInfo.put("x" ,  to_string( x ));
+    rtpInfo.put("m" ,  to_string( m ));
 
     if( len <= minLen) return -1;
 
     pPacket += minLen;
-    return handle_nalu(pPacket, len - minLen);
+    return handle_nalu(pPacket, len - minLen, rtpInfo);
 }
 
-int MediaFileParser::handle_nalu(uint8_t* pPacket, int len) {
+int MediaFileParser::handle_nalu(uint8_t* pPacket, int len, rtp_info_t& rtpInfo) {
     char p8[4] = {0,0,0,1};
     fwrite(p8, 1, 4, m_output_file);
     fwrite(pPacket, 1, len, m_output_file);
@@ -103,27 +111,27 @@ int MediaFileParser::handle_nalu(uint8_t* pPacket, int len) {
     // NAL Unit Header
     uint8_t *pNalHeader = (uint8_t*)pPacket;
     int naluType = *pNalHeader & 0x1f;
-    msg_trace("naluType=" << naluType);
+    rtpInfo.put("nalType", to_string(naluType));
     //5: IDR, 6: SEI, 7: SPS, 8: PPS
     //24: STAP-A, 28: FU-A
     if (naluType == 24) {
-        handle_stap(pPacket, len);
+        handle_stap(pPacket, len, rtpInfo);
     } else if(naluType == 28) {
-        handle_fu(pPacket, len);
+        handle_fu(pPacket, len, rtpInfo);
     } 
     // parse NAL Unit
     m_nalu_count++;
     return 0;
 }
 
-int MediaFileParser::handle_stap(uint8_t* pPacket, int len) {
+int MediaFileParser::handle_stap(uint8_t* pPacket, int len, rtp_info_t& rtpInfo) {
     pPacket ++;
     //nalu_size: 2 bytes
     int leftPayloadSize = len;
     while (leftPayloadSize > 3) {
         int nalSize = ((*pPacket << 8) & 0x0ff00) + (*(pPacket+1) & 0x0ff);
         int subNalType = (*(pPacket+2) & 0x01f);
-        cout << "STAP: subNalType=" << subNalType <<endl;
+        rtpInfo.put("subNalType", to_string(subNalType));
         pPacket += (2 + nalSize);
         leftPayloadSize -= (2 + nalSize);
     }
@@ -139,12 +147,14 @@ FU header:
       +---------------+
 */
 
-int MediaFileParser::handle_fu(uint8_t* pPacket, int len) {
+int MediaFileParser::handle_fu(uint8_t* pPacket, int len, rtp_info_t& rtpInfo) {
     pPacket ++;
     bool bStart = false, bEnd = false;
-    int nalType = (*pPacket)&0x1f;
+    int subNalType = (*pPacket)&0x1f;
     if ((*pPacket) & 0x40) { bEnd = true; }   
     if ((*pPacket) & 0x80) { bStart = true; } 
-    cout << "FU: subNalType=" << nalType <<", start=" << bStart << ", end=" << bEnd << endl;
+    rtpInfo.put("subNalType", to_string(subNalType));
+    rtpInfo.put("start", to_string(bStart));
+    rtpInfo.put("end", to_string(bEnd));
     return 0;
 }

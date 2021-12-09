@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 #include <stdint.h>
-
+#include <map>
 using namespace std;
 
 typedef struct rtpHeader {
@@ -22,6 +22,40 @@ typedef struct {
     uint32_t len;
 } dump_rtp_hdr;
 
+typedef struct RtpInfo {
+    void put(string key, string value) {
+        items[key] = value;
+    }
+    string get(string key) {
+        return items[key];
+    }
+
+    static void printTitles(std::ostream& os) {
+        os << "size, sn, ts, nalType, subNalType, start, end " << endl;
+    }
+    void printValues(std::ostream& os) {
+        os << get("size") << ", " 
+        << get("sn") << ", " 
+        << get("ts") << ", " 
+        << get("nalType") << ", " 
+        << get("subNalType") << ", " 
+        << get("start") << ", "
+        << get("end") << ", " 
+        << endl;
+
+    }
+
+    friend std::ostream& operator<<(std::ostream& os, const RtpInfo& obj) {
+        std::map<std::string, string>::const_iterator it = obj.items.begin();
+        for(; it != obj.items.end(); ++it )
+        {
+            os << it->first <<"=" << it->second << " ";
+        }
+        return os;
+    };
+
+    std::map<std::string, std::string> items;
+} rtp_info_t;
 
 struct NALU {
 
@@ -68,11 +102,11 @@ public:
 
     int parse_stream();
 
-    int handle_packet(uint8_t* pPacket, int len);
-    int handle_nalu(uint8_t* pPacket, int len);
+    int handle_packet(uint8_t* pPacket, int len, rtp_info_t& rtpInfo);
+    int handle_nalu(uint8_t* pPacket, int len, rtp_info_t& rtpInfo);
     
-    int handle_stap(uint8_t* pPacket, int len);
-    int handle_fu(uint8_t* pPacket, int len);
+    int handle_stap(uint8_t* pPacket, int len, rtp_info_t& rtpInfo);
+    int handle_fu(uint8_t* pPacket, int len, rtp_info_t& rtpInfo);
 
 
 
