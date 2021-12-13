@@ -47,7 +47,9 @@ int MediaFileParser::parse_stream() {
         }
 
         dump_rtp_hdr* pDumpHeader = (dump_rtp_hdr*)pktBuf;
-        debug_trace("tag=" << pDumpHeader->tag  << ", len=" << pDumpHeader->len);
+        debug_trace("tag=" << pDumpHeader->tag[0] << pDumpHeader->tag[1] 
+          << pDumpHeader->tag[2] << pDumpHeader->tag[3] 
+          << ", len=" << pDumpHeader->len);
         int pktLen = pDumpHeader->len;
 
         result = fread(pktBuf, 1, pktLen, m_input_file);
@@ -88,6 +90,11 @@ int MediaFileParser::handle_packet(uint8_t* pPacket, int len, rtp_info_t& rtpInf
         minLen += extSize;
         
     }
+
+    if(cc) {
+        //TODO: + size of csrc
+    }
+
     rtpInfo.put("pt",  to_string(pRtp->payloadType & 0x7f));
     rtpInfo.put("size" ,  to_string(len));
     rtpInfo.put("sn" ,  to_string(ntohs(pRtp->seqNo) ));
