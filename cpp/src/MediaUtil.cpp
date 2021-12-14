@@ -34,6 +34,9 @@ int MediaFileParser::parse_stream() {
     m_filesize = ftell (m_input_file);
     rewind (m_input_file);
 
+    char p8[4] = {0,0,0,0};
+    fwrite(p8, 1, 4, m_output_file);
+
     //sizeof(dump_rtp_hdr)=8
     char pktBuf[2048];
     cout << "# ,";
@@ -80,6 +83,7 @@ int MediaFileParser::handle_packet(uint8_t* pPacket, int len, rtp_info_t& rtpInf
     int x = pRtp->version & 0x10;
     int m = pRtp->payloadType & 0x80;
 
+    //csrc count * 4 bytes
     int minLen = 12 + 4 * cc;
     if(x) {
         uint16_t* pWord = (uint16_t*)(pPacket + minLen);
@@ -89,10 +93,6 @@ int MediaFileParser::handle_packet(uint8_t* pPacket, int len, rtp_info_t& rtpInf
         uint32_t extSize = ntohs(*(pWord + 1))*4;
         minLen += extSize;
         
-    }
-
-    if(cc) {
-        //TODO: + size of csrc
     }
 
     rtpInfo.put("pt",  to_string(pRtp->payloadType & 0x7f));
@@ -111,37 +111,50 @@ int MediaFileParser::handle_packet(uint8_t* pPacket, int len, rtp_info_t& rtpInf
 }
 
 int MediaFileParser::handle_nalu(uint8_t* pPacket, int len, rtp_info_t& rtpInfo) {
-    char p8[4] = {0,0,0,1};
-    fwrite(p8, 1, 4, m_output_file);
-    fwrite(pPacket, 1, len, m_output_file);
-
     // NAL Unit Header
     uint8_t *pNalHeader = (uint8_t*)pPacket;
     int naluType = *pNalHeader & 0x1f;
     rtpInfo.put("nalType", to_string(naluType));
-    //5: IDR, 6: SEI, 7: SPS, 8: PPS
-    //24: STAP-A, 28: FU-A
+    //5: IDR, 6: SEI, 7: SPS, 8: PPS, 24: STAP-A, 28: FU-A
     if (naluType == 24) {
         handle_stap(pPacket, len, rtpInfo);
     } else if(naluType == 28) {
         handle_fu(pPacket, len, rtpInfo);
-    } 
-    // parse NAL Unit
-    m_nalu_count++;
+    } else {
+        char p8[4] = {0,0,0,1};
+        fwrite(p8, 1, 4, m_output_file);
+        fwrite(pPacket, 1, len, m_output_file);
+        m_nalu_count++;
+    }
+
+
     return 0;
 }
+/*
+    0                   1                   2                   3
+     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |                          RTP Header                           |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |STAP-A NAL HDR |         NALU 1 Size           | NALU 1 HDR    |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |                         NALU 1 Data                           |
+*/
 
 int MediaFileParser::handle_stap(uint8_t* pPacket, int len, rtp_info_t& rtpInfo) {
     pPacket ++;
     //nalu_size: 2 bytes
     int leftPayloadSize = len;
+    string subNalTypes = "";
     while (leftPayloadSize > 3) {
         int nalSize = ((*pPacket << 8) & 0x0ff00) + (*(pPacket+1) & 0x0ff);
         int subNalType = (*(pPacket+2) & 0x01f);
-        rtpInfo.put("subNalType", to_string(subNalType));
+        subNalTypes += to_string(subNalType) + " ";
         pPacket += (2 + nalSize);
+        handle_nalu(pPacket, nalSize, rtpInfo);
         leftPayloadSize -= (2 + nalSize);
     }
+    rtpInfo.put("subNalType", subNalTypes);
     return 0;
 }
 
@@ -163,5 +176,9 @@ int MediaFileParser::handle_fu(uint8_t* pPacket, int len, rtp_info_t& rtpInfo) {
     rtpInfo.put("subNalType", to_string(subNalType));
     rtpInfo.put("start", to_string(bStart));
     rtpInfo.put("end", to_string(bEnd));
+
+    //if(bStart) clear fu list
+    //if(bEnd) merge fu list
+
     return 0;
 }

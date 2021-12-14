@@ -5,6 +5,7 @@
 #include <vector>
 #include <stdint.h>
 #include <map>
+#include <list>
 using namespace std;
 
 typedef struct rtpHeader {
@@ -118,7 +119,8 @@ private:
 
     FILE* m_input_file;
     FILE* m_output_file;
-
+    
+    list<NALU> m_list_fu;
     vector<NALU> m_vec_nalu;
 };
 
