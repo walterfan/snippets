@@ -10,7 +10,7 @@
 #define err_trace(msg)	std::cout<<"[ERROR] "<<__FILE__<<","<<__LINE__<<": " << msg <<std::endl
 
 MediaFileParser::MediaFileParser(string& filename)
-: m_filename(filename), m_filesize(0), m_nalu_count(0), m_input_file(NULL), m_output_file(NULL), m_vec_nalu(1024) {
+: m_filename(filename), m_filesize(0), m_nalu_count(0), m_input_file(NULL), m_output_file(NULL) {
     m_h264_file = filename + ".h264";
     cout <<"MediaFileParser " << m_filename << " to " << m_h264_file << endl;
 }
@@ -102,12 +102,21 @@ int MediaFileParser::handle_packet(uint8_t* pPacket, int len, rtp_info_t& rtpInf
     rtpInfo.put("ssrc" ,  to_string(ntohl(pRtp->mediaSSRC) ));
     rtpInfo.put("cc" ,  to_string( cc ));
     rtpInfo.put("x" ,  to_string( x ));
-    rtpInfo.put("m" ,  to_string( m ));
+    rtpInfo.put("m" ,  to_string( m >> 7 ));
 
     if( len <= minLen) return -1;
 
     pPacket += minLen;
     return handle_nalu(pPacket, len - minLen, rtpInfo);
+}
+
+int MediaFileParser::write_nalu(uint8_t* pPacket, int len) {
+    
+    char p8[4] = {0,0,0,1};
+    fwrite(p8, 1, 4, m_output_file);
+    fwrite(pPacket, 1, len, m_output_file);
+    m_nalu_count++;
+    return 0;
 }
 
 int MediaFileParser::handle_nalu(uint8_t* pPacket, int len, rtp_info_t& rtpInfo) {
@@ -121,10 +130,7 @@ int MediaFileParser::handle_nalu(uint8_t* pPacket, int len, rtp_info_t& rtpInfo)
     } else if(naluType == 28) {
         handle_fu(pPacket, len, rtpInfo);
     } else {
-        char p8[4] = {0,0,0,1};
-        fwrite(p8, 1, 4, m_output_file);
-        fwrite(pPacket, 1, len, m_output_file);
-        m_nalu_count++;
+        write_nalu(pPacket, len);
     }
 
 
@@ -150,8 +156,10 @@ int MediaFileParser::handle_stap(uint8_t* pPacket, int len, rtp_info_t& rtpInfo)
         int nalSize = ((*pPacket << 8) & 0x0ff00) + (*(pPacket+1) & 0x0ff);
         int subNalType = (*(pPacket+2) & 0x01f);
         subNalTypes += to_string(subNalType) + " ";
+
+        write_nalu(pPacket + 2, nalSize);
         pPacket += (2 + nalSize);
-        handle_nalu(pPacket, nalSize, rtpInfo);
+        //handle_nalu(pPacket, nalSize, rtpInfo);
         leftPayloadSize -= (2 + nalSize);
     }
     rtpInfo.put("subNalType", subNalTypes);
@@ -159,6 +167,26 @@ int MediaFileParser::handle_stap(uint8_t* pPacket, int len, rtp_info_t& rtpInfo)
 }
 
 /*
+
+FU
+    0                   1                   2                   3
+    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    | FU indicator  |   FU header   |                               |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+                               |
+    |                                                               |
+    |                         FU payload                            |
+    |                                                               |
+    |                               +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |                               :...OPTIONAL RTP padding        |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+
+FU indicator: 
+       +---------------+
+       |0|1|2|3|4|5|6|7|
+       +-+-+-+-+-+-+-+-+
+       |F|NRI|  Type   |
+       +---------------+
 FU header:
       +---------------+
       |0|1|2|3|4|5|6|7|
@@ -168,6 +196,7 @@ FU header:
 */
 
 int MediaFileParser::handle_fu(uint8_t* pPacket, int len, rtp_info_t& rtpInfo) {
+    int nri = (*pPacket) & 0x60;
     pPacket ++;
     bool bStart = false, bEnd = false;
     int subNalType = (*pPacket)&0x1f;
@@ -177,8 +206,36 @@ int MediaFileParser::handle_fu(uint8_t* pPacket, int len, rtp_info_t& rtpInfo) {
     rtpInfo.put("start", to_string(bStart));
     rtpInfo.put("end", to_string(bEnd));
 
+    NALU* pNALU = new NALU(pPacket, len, nri, subNalType);
+    m_list_fu.push_back(pNALU);
     //if(bStart) clear fu list
-    //if(bEnd) merge fu list
+    
+    if(bEnd) {//merge fu list 
+    
 
+    }
+    return 0;
+}
+
+int MediaFileParser::merge_fu(uint8_t** ppPacket, int& len) {
+    if(m_list_fu.empty()) {
+        return 0;
+    }
+    char p8[4] = {0,0,0,1};
+    fwrite(p8, 1, 4, m_output_file);
+    //fwrite(pPacket, 1, len, m_output_file);
+    NALU* pFirstNALU = m_list_fu.front();
+    uint8_t nalHdr = pFirstNALU->nal_unit_type & 0x1f;
+    nalHdr |= pFirstNALU->nal_ref_idc << 5;
+    fwrite(&nalHdr, 1, 1, m_output_file);
+
+    list<NALU*>::iterator it = m_list_fu.begin();
+    for(; it != m_list_fu.end( ); ++it) {
+		NALU* pNALU = *it;
+        fwrite(pNALU->buf, 1, pNALU->len, m_output_file);
+        delete pNALU;
+        pNALU = NULL;
+	}
+	m_list_fu.clear();
     return 0;
 }

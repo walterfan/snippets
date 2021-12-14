@@ -32,10 +32,12 @@ typedef struct RtpInfo {
     }
 
     static void printTitles(std::ostream& os) {
-        os << "size, sn, ts, nalType, subNalType, start, end " << endl;
+        os << "size, ssrc, m, sn, ts, nalType, subNalType, start, end " << endl;
     }
     void printValues(std::ostream& os) {
         os << get("size") << ", " 
+        << get("ssrc") << ", " 
+        << get("m") << ", " 
         << get("sn") << ", " 
         << get("ts") << ", " 
         << get("nalType") << ", " 
@@ -84,10 +86,23 @@ struct NALU {
         kCodedSliceExtension = 20,
   };
 
-    uint8_t* buf;
-    uint32_t len;
-    int nal_ref_idc;
-    int nal_unit_type;
+  NALU(uint8_t* pData, uint32_t size, int nri, int type)
+    :buf(NULL), len(size),nal_ref_idc(nri),nal_unit_type(type)  {
+      buf = new uint8_t[size];
+      memcpy(pData, buf, size);
+  }
+
+  ~NALU() {
+      if (buf) {
+        delete [] buf;
+        buf = NULL;
+      }
+  }
+
+  uint8_t* buf;
+  uint32_t len;
+  int nal_ref_idc;
+  int nal_unit_type;
 };
 
 
@@ -109,7 +124,8 @@ public:
     int handle_stap(uint8_t* pPacket, int len, rtp_info_t& rtpInfo);
     int handle_fu(uint8_t* pPacket, int len, rtp_info_t& rtpInfo);
 
-
+    int merge_fu(uint8_t** ppPacket, int& len);
+    int write_nalu(uint8_t* pPacket, int len);
 
 private:
     string m_filename;
@@ -120,8 +136,8 @@ private:
     FILE* m_input_file;
     FILE* m_output_file;
     
-    list<NALU> m_list_fu;
-    vector<NALU> m_vec_nalu;
+    list<NALU*> m_list_fu;
+
 };
 
 
