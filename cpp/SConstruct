@@ -7,7 +7,7 @@ GTEST_DIR="/workspace/cpp/googletest/googletest"
 LIB_PATH = ['/usr/lib', '/usr/local/lib', '/usr/local/opt/openssl/lib', './lib', './bin','/usr/lib/x86_64-linux-gnu']
 
 env = Environment()
-env.Append(CPPPATH=["/usr/local/include", GMOCK_DIR + "/include", 
+env.Append(CPPPATH=["/usr/local/include", "/usr/include/jsoncpp", GMOCK_DIR + "/include", 
     GTEST_DIR + "/include", "./inc", "./src", "./lib", "./com/algorithms"] )
 env.Append(CCFLAGS = '-fno-elide-constructors -Wall -g -O1 -static -std=c++11 -DBOOST_LOG_DYN_LINK')
 env.Append(LIBPATH=["/usr/local/lib", "./lib/googlemock", "./lib/googlemock/gtest"])

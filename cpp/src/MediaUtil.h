@@ -1,6 +1,6 @@
 #ifndef __MEDIA_UTIL_H__
 #define __MEDIA_UTIL_H__
-
+#include <string.h>
 #include <string>
 #include <vector>
 #include <stdint.h>
