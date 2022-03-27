@@ -1,7 +1,7 @@
 import os
 
-GMOCK_DIR="/workspace/cpp/googletest/googlemock"
-GTEST_DIR="/workspace/cpp/googletest/googletest"
+GMOCK_DIR="~/workspace/cpp/googletest/googlemock"
+GTEST_DIR="~/workspace/cpp/googletest/googletest"
 
 
 LIB_PATH = ['/usr/lib', '/usr/local/lib', '/usr/local/opt/openssl/lib', './lib', './bin','/usr/lib/x86_64-linux-gnu']
@@ -13,7 +13,7 @@ env.Append(CCFLAGS = '-fno-elide-constructors -Wall -g -O1 -static -std=c++11 -D
 env.Append(LIBPATH=["/usr/local/lib", "./lib/googlemock", "./lib/googlemock/gtest"])
 
 
-basictest=env.Program(target='./bin/function_ptr_test', source=['./test/function_ptr_test.cpp'])
+basictest=env.Program(target='./bin/basic_test', source=['./test/function_ptr_test.cpp'])
 
 tinydiagram=env.Program(target='./bin/tiny_diagram', source=['./exam/tiny_diagram.cpp'])
 

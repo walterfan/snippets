@@ -5,7 +5,7 @@
 #include <sstream>
 #include <fstream>
 #include <deque>
-
+#include <set>
 
 using namespace std;
 using namespace testing;
@@ -58,11 +58,25 @@ std::string timestamp()
 
 TEST(StlTest, StringTest)
 {
-    cout<<"--- StringTest.find --"<<endl;
+    cout<<"--- StlTest.StringTest --"<<endl;
     string strTransaction = "APP|APP_AUTHENTICATE_RESPONSE|0|3";
     ASSERT_TRUE(strTransaction.find("APP|APP_AUTHENTICATE_RESPONSE|0|") != string::npos);
 }
-
+TEST(StlTest, SetTest)
+{
+    cout<<"--- StringTest.SetTest --"<<endl;
+    const std::set<std::string> STATS_TYPES {
+        "inbound-rtp",         
+        "outbound-rtp",   
+        "remote-inbound-rtp",
+        "remote-outbound-rtp", 
+        "candidate-pair", 
+        "transport"
+        };
+    auto search = STATS_TYPES.find("transport");
+    cout << "find " << *search << endl;
+    ASSERT_TRUE(search != STATS_TYPES.end());
+}
 
 TEST(StlTest, IostreamTest)
 {
