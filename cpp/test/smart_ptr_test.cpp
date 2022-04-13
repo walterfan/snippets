@@ -91,7 +91,7 @@ TEST_F(SmartPtrTest, UniquePtrTest)
      
         if (p1) p1->GetSN();
     }
-    ASSERT_EQ(GetFingerprint(p0), 0);
+    ASSERT_NE(GetFingerprint(p0), snTestNum);
 
 }
 
