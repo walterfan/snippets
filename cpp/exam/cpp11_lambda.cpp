@@ -1,4 +1,5 @@
 #include "run_example.h"
+#include <cmath>
 
 using namespace std;
 
@@ -12,5 +13,11 @@ int lambda_demo(int argc, char* argv[])
     auto num = 1;
     auto add = [num](int n) { return num + n; };
     BOOST_LOG_TRIVIAL(trace) << "added number: " << add(10);
+
+
+    double pi = 3.14;
+    auto cal_area = [pi](double r) {return pi * pow(r, 2.0); };
+    BOOST_LOG_TRIVIAL(trace) << "area: " << cal_area(10);
+    
     return 0;
 }

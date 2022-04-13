@@ -1,0 +1,13 @@
+{
+  "name": "potato",
+  "version": "1.0.0",
+  "description": "todo timer",
+  "main": "index.js",
+  "repository": "https://www.fanyamin.com/potato",
+  "author": "Walter Fan",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^13.1.2"
+  },
+  "scripts":{"start": "electron ./index.js"}
+}

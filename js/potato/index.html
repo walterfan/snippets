@@ -1,0 +1,29 @@
+<html>
+<head>
+    <title> Potato Timer</title>
+</head>
+<body>
+    <div>
+        <h1> Potato Timer</h1>
+
+        <div>
+            <p><button id="startButton">Start</button></p>
+            <p><button id="pauseButton">Pause</button></p>
+            <p><button id="resumeButton">Resume</button></p>
+            <p><button id="stopButton">Stop</button></p>
+            <p><button id="debugButton">Debug</button></p>
+        </div>
+    </div>
+</body>
+<script src= "test.js"></script>
+<script>
+
+    let startButton = document.querySelector("#startButton");
+    startButton.onclick = function() {
+        testSetTimeout(10, 300);
+        alert("started");
+    };
+
+
+</script>
+</html>

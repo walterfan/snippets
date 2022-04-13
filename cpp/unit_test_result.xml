@@ -1,16 +1,88 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites tests="5" failures="0" disabled="0" errors="0" timestamp="2021-06-20T18:28:17" time="3.735" name="AllTests">
-  <testsuite name="LsearchTest" tests="2" failures="0" disabled="0" errors="0" time="0">
-    <testcase name="SearchIntegerTest" status="run" time="0" classname="LsearchTest" />
-    <testcase name="SearchStringTest" status="run" time="0" classname="LsearchTest" />
+<testsuites tests="25" failures="0" disabled="0" errors="0" time="1.012" timestamp="2022-02-27T11:14:37.666" name="AllTests">
+  <testsuite name="BasicTest" tests="3" failures="0" disabled="0" skipped="0" errors="0" time="0" timestamp="2022-02-27T11:14:37.666">
+    <testcase name="selfincrease1" status="run" result="completed" time="0" timestamp="2022-02-27T11:14:37.666" classname="BasicTest" />
+    <testcase name="selfincrease2" status="run" result="completed" time="0" timestamp="2022-02-27T11:14:37.666" classname="BasicTest" />
+    <testcase name="pointer" status="run" result="completed" time="0" timestamp="2022-02-27T11:14:37.666" classname="BasicTest" />
   </testsuite>
-  <testsuite name="SortUtilsTest" tests="1" failures="0" disabled="0" errors="0" time="0">
-    <testcase name="InsertSort" status="run" time="0" classname="SortUtilsTest" />
+  <testsuite name="functorTest" tests="3" failures="0" disabled="0" skipped="0" errors="0" time="0" timestamp="2022-02-27T11:14:37.666">
+    <testcase name="testcase1" status="run" result="completed" time="0" timestamp="2022-02-27T11:14:37.666" classname="functorTest" />
+    <testcase name="testcase2" status="run" result="completed" time="0" timestamp="2022-02-27T11:14:37.666" classname="functorTest" />
+    <testcase name="testcase3" status="run" result="completed" time="0" timestamp="2022-02-27T11:14:37.666" classname="functorTest" />
   </testsuite>
-  <testsuite name="FibTest" tests="1" failures="0" disabled="0" errors="0" time="3.734">
-    <testcase name="FibTest" status="run" time="3.734" classname="FibTest" />
+  <testsuite name="StlTest" tests="3" failures="0" disabled="0" skipped="0" errors="0" time="0.001" timestamp="2022-02-27T11:14:37.666">
+    <testcase name="StringTest" status="run" result="completed" time="0" timestamp="2022-02-27T11:14:37.666" classname="StlTest" />
+    <testcase name="IostreamTest" status="run" result="completed" time="0.001" timestamp="2022-02-27T11:14:37.666" classname="StlTest" />
+    <testcase name="DequeTest" status="run" result="completed" time="0" timestamp="2022-02-27T11:14:37.668" classname="StlTest" />
   </testsuite>
-  <testsuite name="ListNodeTest" tests="1" failures="0" disabled="0" errors="0" time="0">
-    <testcase name="CycleTest" status="run" time="0" classname="ListNodeTest" />
+  <testsuite name="StringUtilTest" tests="3" failures="0" disabled="0" skipped="0" errors="0" time="0" timestamp="2022-02-27T11:14:37.668">
+    <testcase name="strok_r" status="run" result="completed" time="0" timestamp="2022-02-27T11:14:37.668" classname="StringUtilTest" />
+    <testcase name="get_value_by_key" status="run" result="completed" time="0" timestamp="2022-02-27T11:14:37.668" classname="StringUtilTest" />
+    <testcase name="replace_value_by_key" status="run" result="completed" time="0" timestamp="2022-02-27T11:14:37.668" classname="StringUtilTest" />
+  </testsuite>
+  <testsuite name="JsonCppTest" tests="2" failures="0" disabled="0" skipped="0" errors="0" time="0" timestamp="2022-02-27T11:14:37.668">
+    <testcase name="VectorToJson" status="run" result="completed" time="0" timestamp="2022-02-27T11:14:37.668" classname="JsonCppTest" />
+    <testcase name="JsonFileRead" status="run" result="completed" time="0" timestamp="2022-02-27T11:14:37.668" classname="JsonCppTest" />
+  </testsuite>
+  <testsuite name="RegexTest" tests="2" failures="0" disabled="0" skipped="0" errors="0" time="0" timestamp="2022-02-27T11:14:37.668">
+    <testcase name="TEST_STR1" status="run" result="completed" time="0" timestamp="2022-02-27T11:14:37.668" classname="RegexTest" />
+    <testcase name="TEST_STR2" status="run" result="completed" time="0" timestamp="2022-02-27T11:14:37.669" classname="RegexTest" />
+  </testsuite>
+  <testsuite name="TestSuitLoaderTest" tests="1" failures="0" disabled="0" skipped="0" errors="0" time="0" timestamp="2022-02-27T11:14:37.669">
+    <testcase name="LoadTest" status="run" result="completed" time="0" timestamp="2022-02-27T11:14:37.669" classname="TestSuitLoaderTest" />
+  </testsuite>
+  <testsuite name="TestSuitLoaderImplTest" tests="1" failures="0" disabled="0" skipped="0" errors="0" time="0" timestamp="2022-02-27T11:14:37.669">
+    <testcase name="ParseTest" status="run" result="completed" time="0" timestamp="2022-02-27T11:14:37.669" classname="TestSuitLoaderImplTest" />
+  </testsuite>
+  <testsuite name="HuffmanCodesTest" tests="1" failures="0" disabled="0" skipped="0" errors="0" time="0.001" timestamp="2022-02-27T11:14:37.669">
+    <testcase name="buildTest" status="run" result="completed" time="0.001" timestamp="2022-02-27T11:14:37.669" classname="HuffmanCodesTest" />
+  </testsuite>
+  <testsuite name="TimeUtilTest" tests="1" failures="0" disabled="0" skipped="0" errors="0" time="1.007" timestamp="2022-02-27T11:14:37.670">
+    <testcase name="getCurrentTime" status="run" result="completed" time="1.007" timestamp="2022-02-27T11:14:37.670" classname="TimeUtilTest" />
+  </testsuite>
+  <testsuite name="FutureTest" tests="1" failures="0" disabled="0" skipped="0" errors="0" time="0" timestamp="2022-02-27T11:14:38.678">
+    <testcase name="async" status="run" result="completed" time="0" timestamp="2022-02-27T11:14:38.678" classname="FutureTest" />
+  </testsuite>
+  <testsuite name="SmartPtrTest" tests="4" failures="0" disabled="0" skipped="0" errors="0" time="0" timestamp="2022-02-27T11:14:38.678">
+    <testcase name="AutoPtrTest" status="run" result="completed" time="0" timestamp="2022-02-27T11:14:38.678" classname="SmartPtrTest">
+<properties>
+<property name="feature" value="Smart Pointer"/>
+<property name="scenario" value="SmartPtrTest.AutoPtrTest"/>
+<property name="given" value="create a pointer to auto_ptr"/>
+<property name="when" value="out of the scope"/>
+<property name="then" value="the pointer will be released"/>
+<property name="checkpoints" value=""/>
+</properties>
+    </testcase>
+    <testcase name="UniquePtrTest" status="run" result="completed" time="0" timestamp="2022-02-27T11:14:38.678" classname="SmartPtrTest">
+<properties>
+<property name="feature" value="Smart Pointer"/>
+<property name="scenario" value="SmartPtrTest.UniquePtrTest"/>
+<property name="given" value="create a pointer to unique_ptr"/>
+<property name="when" value="out of the scope"/>
+<property name="then" value="the pointer will be released"/>
+<property name="checkpoints" value=""/>
+</properties>
+    </testcase>
+    <testcase name="SharedPtrTest" status="run" result="completed" time="0" timestamp="2022-02-27T11:14:38.679" classname="SmartPtrTest">
+<properties>
+<property name="feature" value="Smart Pointer"/>
+<property name="scenario" value="SmartPtrTest.SharedPtrTest"/>
+<property name="given" value="create a pointer to shared_ptr"/>
+<property name="when" value="out of the scope"/>
+<property name="then" value="the pointer will be released"/>
+<property name="checkpoints" value=""/>
+</properties>
+    </testcase>
+    <testcase name="WeakPtrTest" status="run" result="completed" time="0" timestamp="2022-02-27T11:14:38.679" classname="SmartPtrTest">
+<properties>
+<property name="feature" value="Smart Pointer"/>
+<property name="scenario" value="SmartPtrTest.WeakPtrTest"/>
+<property name="given" value="create a pointer to weak_ptr"/>
+<property name="when" value="out of the scope"/>
+<property name="then" value="the pointer will be released"/>
+<property name="checkpoints" value=""/>
+</properties>
+    </testcase>
   </testsuite>
 </testsuites>
