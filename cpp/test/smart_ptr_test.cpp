@@ -70,18 +70,6 @@ uint32_t GetFingerprint(Packet* pPacket)
     return *pFingerprint;
 }
 
-TEST_F(SmartPtrTest, AutoPtrTest)
-{
-   RecordTestCase("create a pointer to auto_ptr", "out of the scope", "the pointer will be released");
-   Packet* p0 = new Packet(++snTestNum);
-   {
-       auto_ptr<Packet> p1(p0);
-       p1 -> GetSN();
-       ASSERT_EQ(GetFingerprint(p0), FINGERPRINT);
-   }
-   ASSERT_EQ(GetFingerprint(p0), 0);
-
-}
 
 TEST_F(SmartPtrTest, UniquePtrTest)
 {
@@ -91,7 +79,7 @@ TEST_F(SmartPtrTest, UniquePtrTest)
     {
         std::unique_ptr<Packet> p1(p0);  // p1 owns Packet
         if (p1) p1->GetSN();
-     
+
         {
             std::unique_ptr<Packet> p2(std::move(p1));  // now p2 owns Packet, p1 contain a null pointer
             ASSERT_FALSE(p1);

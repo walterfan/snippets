@@ -71,6 +71,48 @@ int test(int argc, char *argv[])
 }
 
 
+enum COLOR {
+  RED,
+  GREEN,
+  BLUE,
+  BLACK,
+  WHITE
+};
+
+inline std::ostream& operator<<(std::ostream& o, COLOR color) {
+    switch (color) {
+        case RED:
+            o << "red";
+            break;
+        case GREEN:
+            o << "green";
+            break;
+        default:
+            o << "unknown";
+    }
+    return o;
+}
+
+const std::map<COLOR, std::string> MAP_OF_COLOR = {
+    {RED, "red"},
+    {GREEN, "green"},
+    {BLUE, "blue"},
+    {BLACK, "black"},
+    {WHITE, "white"}};
+
+void quick_test() {
+
+    std::for_each(MAP_OF_COLOR.begin(), MAP_OF_COLOR.end(),
+                  [](std::pair<COLOR, std::string> pair) {
+                      std::ostringstream oss;
+                      COLOR color = pair.first;
+                      std::string& color_name = pair.second;
+                      oss << color;
+                      std::cout << oss.str() << "--" << color_name << std::endl;
+                      
+                  });
+}
+
 int main(int argc, char *argv[])
 {
 	msg_trace("--- Walter test program ---");
@@ -84,6 +126,7 @@ int main(int argc, char *argv[])
      delete pParser;
      msg_trace("--- byebye ---");
 	} else {
+     quick_test();
      msg_trace("Usage: " << argv[0] << " <media_file>");
   }
 	return nRet;
