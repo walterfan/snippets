@@ -7,11 +7,16 @@ GTEST_DIR="~/workspace/cpp/googletest/googletest"
 LIB_PATH = ['/usr/lib', '/usr/local/lib', '/usr/local/opt/openssl/lib', './lib', './bin','/usr/lib/x86_64-linux-gnu']
 
 env = Environment()
-env.Append(CPPPATH=["/usr/local/include", "/usr/include/jsoncpp", GMOCK_DIR + "/include", 
+env.Append(CPPPATH=["/usr/local/include", "/usr/include/jsoncpp",
+    GMOCK_DIR + "/include",
     GTEST_DIR + "/include", "./inc", "./src", "./lib", "./com/algorithms"] )
 env.Append(CCFLAGS = '-fno-elide-constructors -Wall -g -O1 -static -std=c++20 -DBOOST_LOG_DYN_LINK')
 env.Append(LIBPATH=["/usr/local/lib", "./lib/googlemock", "./lib/googlemock/gtest"])
 
+env.ParseConfig("pkg-config --cflags glib-2.0")
+env.ParseConfig("pkg-config --libs glib-2.0")
+
+print("CPPPATH=", env['CPPPATH'], ", LIBPATH=", env['LIBPATH'])
 
 basictest=env.Program(target='./bin/basic_test', source=['./test/function_ptr_test.cpp'])
 
@@ -35,8 +40,10 @@ unittest=env.Program(target='./bin/unittest', source=['./test/unittest.cpp',
     './test/HuffmanCodeTest.cpp',
     './test/TimeFuncTest.cpp',
     './test/future_test.cpp',
-	'./test/smart_ptr_test.cpp'],
-    LIBS = ['gmock','gtest', 'jsoncpp', 'pthread'], LIBPATH = LIB_PATH)
+	'./test/smart_ptr_test.cpp',
+    './test/glib_test.cpp'],
+    LIBPATH = LIB_PATH,
+    LIBS = ['gmock','gtest', 'jsoncpp', 'pthread', 'glib-2.0'])
 
 
 wordbankdemo=env.Program(target='./bin/wordbankdemo', 
