@@ -7,6 +7,6 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "qunit": "^0.6.2"
+    "qunit": "^2.19.4"
   }
 }
