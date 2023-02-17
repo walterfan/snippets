@@ -7,7 +7,7 @@
   "author": "Walter Fan",
   "license": "MIT",
   "devDependencies": {
-    "electron": "^13.1.2"
+    "electron": "^18.3.7"
   },
   "scripts":{"start": "electron ./index.js"}
 }
